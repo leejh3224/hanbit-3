@@ -1,0 +1,40 @@
+import React from 'react'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom'
+
+/* meterial-ui */
+import { MuiThemeProvider } from 'material-ui/styles'
+import theme from 'lib/theme'
+
+/* styled-components */
+import { ThemeProvider } from 'styled-components'
+import styledTheme from 'lib/styledTheme'
+
+/* normalize-css */
+import 'normalize.css'
+
+import Home from 'pages/Home'
+import PropTypes from 'prop-types'
+
+const App = () => {
+  return (
+    <ThemeProvider theme={styledTheme}>
+      <MuiThemeProvider theme={theme}>
+        <Router>
+          <Switch>
+            <Route component={Home} />
+          </Switch>
+        </Router>
+      </MuiThemeProvider>
+    </ThemeProvider>
+  )
+}
+
+App.propTypes = {
+
+}
+
+export default App

@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  h1= "Welcome to auth world"
+  form(action="/", method="POST" enctype="multipart/form-data")
+    h1= "파일 올리기 실험"
+    input(type="file" name="img")
+    button(type="submit") 제출
+    input(type="hidden", name="_csrf", value= csrfToken)
+  form(action="/user/signup", method="POST")
+    h1= "가입"
+    input(type="text" placeholder="이메일" name="email")
+    input(type="password" placeholder="비밀번호" name="password")
+    button(type="submit") 제출
+    input(type="hidden", name="_csrf", value= csrfToken)
+  form(action="/user/signin", method="POST")
+    h1= "로그인"
+    input(type="text" placeholder="이메일" name="email")
+    input(type="password" placeholder="비밀번호" name="password")
+    button(type="submit") 제출
+    input(type="hidden", name="_csrf", value= csrfToken)
+  h1= "소셜 로그인"
+    p
+    a(href="/user/signup/naver") 네이버 로그인
+    p
+    a(href="/user/signup/facebook") 페이스북 로그인
