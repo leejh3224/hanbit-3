@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   align-items: center;
 
   > p {
-    font-size: 3.2em;
+    font-size: 3em;
     @media(max-width: 30em) {
       font-size: 2em;
     }

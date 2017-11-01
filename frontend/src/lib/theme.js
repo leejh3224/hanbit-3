@@ -41,9 +41,6 @@ const theme = createMuiTheme({
       fontSize: 10,
     },
   },
-  spacing: {
-    unit: 8,
-  },
   zIndex: {
     mobileStepper: 900,
     menu: 1000,

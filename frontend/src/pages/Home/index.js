@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import Template from '../Template'
 import Hero from './Hero'
 
+import ProductList from './ProductList'
+
 /* landscape-mode */
 const getHeight = window.innerHeight < 500 ? 
   300 : window.innerHeight * 0.5
@@ -16,6 +18,7 @@ const Home = () => {
         src={require('static/girl.jpg')}
         height={getHeight}
       />
+      <ProductList />
     </Template>
   )
 }
