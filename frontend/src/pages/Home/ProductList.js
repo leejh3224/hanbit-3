@@ -8,7 +8,7 @@ import Typography from 'shared/Typography'
 const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding: 0 1em;
+  padding: 0 ${({ theme }) => theme.spacing * 1}px;
   > h3 {
     width: 100%;
     padding: ${({ theme }) => theme.spacing * 2}px;

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { Route } from 'react-router-dom'
 
 import Template from '../Template'
 import Hero from './Hero'
@@ -15,7 +16,7 @@ const Home = () => {
   return (
     <Template>
       <Hero
-        src={require('static/girl.jpg')}
+        src={require('static/back.jpg')}
         height={getHeight}
       />
       <ProductList />

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import Card, { CardActions, CardContent } from 'material-ui/Card'
 import FavoriteIcon from 'material-ui-icons/Favorite'
@@ -12,16 +13,19 @@ import Typography from 'shared/Typography'
 const ProductCard = () => {
   return (
     <Card className="card" style={{ width: 300 }}>
-      <Image 
-        src={require('static/mac.jpg')}
-        height={250}
-      />
+      <Link to="/">
+        <Image 
+          src={require('static/mac.jpg')}
+          height={250}
+          lazy
+        />
+      </Link>
       <CardContent style={{ padding: '16px 16px 0 16px' }}>
         <Typography
           type="headline"
           bold
         >
-          로로 2016 SS
+          Lorem ipsum dolor sit amet.
         </Typography>
         <Typography
           type="display2"

@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Image from 'shared/Image'
 import Typography from 'shared/Typography'
 
-import TextField from 'material-ui/TextField'
+import SearchInput from 'shared/SearchInput'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -22,13 +22,6 @@ const Wrapper = styled.div`
       font-size: 2em;
     }
   }
-
-  > .search {
-    width: 27em;
-    @media(max-width: 30em) {
-      width: 16em;
-    }
-  }
 `
 
 const Hero = ({
@@ -42,12 +35,8 @@ const Hero = ({
     >
       <Wrapper>
         <Typography bold>You will feel better.</Typography>
-        <TextField
-          className="search"
-          id="search"
-          type="search"
-          margin="normal"
-          placeholder="Find here"
+        <SearchInput
+          width={400}
         />
       </Wrapper>
     </Image>

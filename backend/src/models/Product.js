@@ -32,6 +32,11 @@ const Product = new Schema({
     price: { type: Number, required: true },
     thumnail: { name: String, path: String, required: true },
   },
+  status: {
+    type: String,
+    enum: ['NEW', 'HOT', 'SALE', null],
+    default: null,
+  }
 }, { timestamps: true })
 
 export default mongoose.model('Product', Product)
