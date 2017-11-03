@@ -29,12 +29,13 @@ const FullScreenDialog = ({
   open,
   handleClickOpen,
   handleRequestClose,
+  fullScreen,
 }) => {
   return (
     <div>
       <Trigger onClick={handleClickOpen} />
       <Dialog
-        fullScreen
+        fullScreen={fullScreen}
         open={open}
         onRequestClose={handleRequestClose}
         transition={Transition}
@@ -66,7 +67,7 @@ const FullScreenDialog = ({
 }
 
 FullScreenDialog.propTypes = {
-  Trigger: PropTypes.element.isRequired,
+  Trigger: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   action: PropTypes.string.isRequired,
   body: PropTypes.element.isRequired,

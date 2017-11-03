@@ -32,6 +32,7 @@ const SearchButton = ({
 class Header extends Component {
   constructor(props) {
     super(props)
+    
     /* 만약 유저가 /search로 들어오면 dialog를 보여줌 */
     const searching = props.location.pathname === '/search'
     this.state ={
@@ -70,6 +71,7 @@ class Header extends Component {
           {/* filling up space */}
           <div style={{ flex: 1 }} />
           <FullScreenDialog
+            fullScreen
             name={'Search'}
             action={'BACK'}
             body={<SearchInput fullWidth />}
