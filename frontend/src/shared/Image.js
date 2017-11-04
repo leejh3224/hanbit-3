@@ -27,7 +27,7 @@ const Image = ({
           </LazyLoader>
         ) : (
           <StyledImage height={height} src={src}>
-            { children }
+            {children}
           </StyledImage>
         )
       }
@@ -39,6 +39,7 @@ Image.propTypes = {
   src: PropTypes.string.isRequired,
   height: PropTypes.number.isRequired,
   lazy: PropTypes.bool,
+  children: PropTypes.element,
 }
 
 export default Image

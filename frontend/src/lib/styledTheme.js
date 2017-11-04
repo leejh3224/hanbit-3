@@ -4,7 +4,7 @@ const styledTheme = {
     secondary: '#ffbebd',
     background: '#f4f4f4',
     success: 'c7db00',
-    error: '#ff4447',
+    error: '#fe423f',
   },
   spacing: 8,
 }

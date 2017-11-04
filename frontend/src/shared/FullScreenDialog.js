@@ -41,7 +41,7 @@ const FullScreenDialog = ({
         transition={Transition}
       >
         <AppBar>
-          <Toolbar>
+          <Toolbar disableGutters>
             <IconButton
               onClick={handleRequestClose}
               aria-label="Close"
@@ -51,15 +51,15 @@ const FullScreenDialog = ({
             <Typography
               type="headline"
               bold
-              style={{ flex: 1, marginTop: 4, marginLeft: 12 }}
-            >{ name }</Typography>
+              style={{ flex: 1, marginTop: 3, marginLeft: 12 }}
+            >{name}</Typography>
             <Button onClick={handleRequestClose}>
-              { action }
+              {action}
             </Button>
           </Toolbar>
         </AppBar>
         <BodyWrapper>
-          { body }
+          {body}
         </BodyWrapper>
       </Dialog>
     </div>

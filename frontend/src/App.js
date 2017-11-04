@@ -18,6 +18,7 @@ import 'normalize.css'
 
 import Home from 'pages/Home'
 import Login from 'pages/Login'
+import Product from 'pages/Product'
 import PropTypes from 'prop-types'
 
 const App = () => {
@@ -26,8 +27,9 @@ const App = () => {
       <MuiThemeProvider theme={theme}>
         <Router>
           <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/" component={Home} />
+            <Route path="/product/:id" component={Product} />
+            <Route exact path="/(login|register)" component={Login} />
+            <Route path="/:mode?" component={Home} />
             <Route render={() => <p>not found</p>} />
           </Switch>
         </Router>
