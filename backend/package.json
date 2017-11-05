@@ -39,6 +39,7 @@
     "babel-preset-env": "^1.4.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.17.1",
+    "compose-middleware": "^3.0.0",
     "connect-redis": "^3.3.2",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",

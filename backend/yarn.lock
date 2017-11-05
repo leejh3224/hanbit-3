@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@types/debug@0.0.29":
+  version "0.0.29"
+  resolved "https://registry.yarnpkg.com/@types/debug/-/debug-0.0.29.tgz#a1e514adfbd92f03a224ba54d693111dbf1f3754"
+
 abab@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.3.tgz#b81de5f7274ec4e756d797cd834f303642724e5d"
@@ -157,6 +161,10 @@ array-equal@^1.0.0:
 array-flatten@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/array-flatten/-/array-flatten-1.1.1.tgz#9a5f699051b1e7073328f2a008968b64ea2955d2"
+
+array-flatten@^2.1.0:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/array-flatten/-/array-flatten-2.1.1.tgz#426bb9da84090c1838d812c8150af20a8331e296"
 
 array-union@^1.0.1:
   version "1.0.2"
@@ -1121,6 +1129,14 @@ commander@^2.8.1, commander@^2.9.0:
 component-emitter@^1.2.0:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/component-emitter/-/component-emitter-1.2.1.tgz#137918d6d78283f7df7a6b7c5a63e140e69425e6"
+
+compose-middleware@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/compose-middleware/-/compose-middleware-3.0.0.tgz#d932618fb0275c0b18c0f4415d40455c247a2064"
+  dependencies:
+    "@types/debug" "0.0.29"
+    array-flatten "^2.1.0"
+    debug "^2.6.8"
 
 concat-map@0.0.1:
   version "0.0.1"

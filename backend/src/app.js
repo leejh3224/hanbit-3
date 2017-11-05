@@ -12,6 +12,7 @@ import routes from './routes'
 import connectDB from './models'
 import passportConfig from './passport'
 import sess from './sess'
+import config from './config'
 
 const app = express()
 app.use(helmet())
@@ -23,7 +24,7 @@ app.use(logger('dev', {
 }))
 
 // allow cors only in dev environment
-if (process.env.NODE_ENV === 'development') {
+if (config.env) {
   app.use(cors())
 }
 
@@ -34,10 +35,10 @@ app.use(session(sess))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 passportConfig(app, passport)
-app.use(express.static(path.join(__dirname, '../public')))
 
 // Routes
 app.use('/', routes)
+app.use(express.static(path.join(__dirname, '../public')))
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {

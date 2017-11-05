@@ -2,8 +2,7 @@ import session from 'express-session'
 import redis from 'redis'
 import config from './config'
 
-const env = process.env.NODE_ENV
-const { host, redis_conf } = config[env]
+const { host, redis_conf } = config
 
 const RedisStore = require('connect-redis')(session)
 const client = redis.createClient(redis_conf.port, host)

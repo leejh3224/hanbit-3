@@ -4,8 +4,7 @@ import { Strategy as NaverStrategy } from 'passport-naver'
 import { Strategy as FacebookStrategy } from 'passport-facebook'
 import config from './config'
 
-const env = process.env.NODE_ENV
-const { naver, facebook } = config[env]
+const { naver, facebook } = config
 
 module.exports = (app, passport) => {
 

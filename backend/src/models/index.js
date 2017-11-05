@@ -1,8 +1,7 @@
 import mongoose from 'mongoose'
 import config from '../config'
 
-const env = process.env.NODE_ENV
-const { uri } = config[env].mongo
+const { uri } = config.mongo
 
 const connectDB = () => {
 

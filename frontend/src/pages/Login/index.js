@@ -39,15 +39,17 @@ const NavWrapper = styled.div`
 
 const Login = ({
   match,
+  history,
 }) => {
 
   /* login or register */
   const mode = match.params[0]
+  const isLoginView = mode === 'signin'
   const reverse = (mode) => {
-    if(mode === 'login') {
-      return 'register'
+    if(isLoginView) {
+      return 'signup'
     }
-    return 'login'
+    return 'signin'
   }
   return (
     <Template>
@@ -67,20 +69,20 @@ const Login = ({
             />
           </div>
           <CardContent style={{ flex: 2 }}>
-            <LoginForm mode={mode} />
+            <LoginForm mode={mode} history={history} />
           </CardContent>
         </Card>
         <NavWrapper>
           <NavLink to={`/${reverse(mode)}`} activeStyle={{ color: '#000' }}>
             <Button>
             {
-              mode === 'login' ? 
+              isLoginView ? 
               '처음이신가요?' : '로그인하기'
             }
             </Button>
           </NavLink>
           {
-            mode === 'login' && (
+            isLoginView && (
             <NavLink to="/" activeStyle={{ color: '#000' }}>
               <Button>비밀번호를 잊어버리셨나요?</Button>
             </NavLink>

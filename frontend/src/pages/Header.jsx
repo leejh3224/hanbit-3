@@ -80,7 +80,7 @@ class Header extends Component {
             handleClickOpen={handleClickOpen}
             handleRequestClose={handleRequestClose}
           />
-          <Link to="/login">
+          <Link to="/signin">
             <IconButton aria-label="PersonOutline">
               <PersonOutlineIcon />
             </IconButton>

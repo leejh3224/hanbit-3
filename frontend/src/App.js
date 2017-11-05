@@ -28,7 +28,7 @@ const App = () => {
         <Router>
           <Switch>
             <Route path="/product/:id" component={Product} />
-            <Route exact path="/(login|register)" component={Login} />
+            <Route exact path="/(signin|signup)" component={Login} />
             <Route path="/:mode?" component={Home} />
             <Route render={() => <p>not found</p>} />
           </Switch>

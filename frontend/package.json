@@ -5,6 +5,7 @@
   "dependencies": {
     "autoprefixer": "7.1.2",
     "autosuggest-highlight": "^3.1.1",
+    "axios": "^0.17.0",
     "babel-core": "6.25.0",
     "babel-eslint": "7.2.3",
     "babel-jest": "20.0.3",
@@ -64,7 +65,7 @@
     "yup": "^0.23.0"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "NODE_PATH=src node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },

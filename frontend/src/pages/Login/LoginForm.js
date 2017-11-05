@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import isEmpty from 'lodash/isEmpty'
+import axios from 'axios'
+import { Link } from 'react-router-dom'
 import { withFormik } from 'formik'
 import yup from 'yup'
 import { setLocale } from 'yup/lib/customLocale'
@@ -20,9 +22,10 @@ const StyledForm = styled.form`
   align-items: center;
 `
 
-const SocialButton = styled(Button).attrs({
-  fab: true,
-})`
+const Icon = styled.div`
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
   background-size: cover;
   background-image: ${({ icon }) => `url(${require(`static/${icon}.png`)})`};
 `
@@ -53,8 +56,9 @@ const LoginForm = ({
   handleSubmit,
   isSubmitting,
 }) => {
+  const isLoginView = mode === 'signin'
   const hasError = (field) => {
-    return mode !== 'login' &&
+    return !isLoginView &&
     touched[field] &&
     errors[field]
   }
@@ -64,7 +68,7 @@ const LoginForm = ({
 
       /* use onSubmit validation when user logs in */
       onSubmit={(e) => {
-        if (mode === 'login' && !isEmpty(errors)) {
+        if (isLoginView && !isEmpty(errors)) {
           alert(`${errors.email}, ${errors.password}`)
         }
         handleSubmit(e)
@@ -73,7 +77,7 @@ const LoginForm = ({
       <Typography
         type="subheading"
         bold
-      >{mode === 'login' ? '로그인' : '가입: 1 단계'}</Typography>
+      >{isLoginView ? '로그인' : '가입: 1 단계'}</Typography>
       <TextField
         label="이메일"
         type="email"
@@ -114,17 +118,20 @@ const LoginForm = ({
         계속하기
       </Button>
       {
-        mode === 'login' && (
+        isLoginView && (
         <div>
           <p style={{ textAlign: 'center' }}>또는</p>
           <ButtonWrapper>
-            <SocialButton
-              style={{ marginRight: 16 }}
-              icon="facebook"
-            />
-            <SocialButton
-              icon="naver"
-            />
+            <a href="http://127.0.0.1:8080/user/signup/facebook">
+              <Button fab style={{ marginRight: 16 }}>
+                <Icon icon="facebook" />
+              </Button>
+            </a>
+            <a href="http://127.0.0.1:8080/user/signup/naver">
+              <Button fab>
+                <Icon icon="naver" />
+              </Button>
+            </a>
           </ButtonWrapper>
         </div>
         )
@@ -147,6 +154,9 @@ LoginForm.propTypes = {
 /* eslint-disable no-template-curly-in-string */
 /* locale error message */
 setLocale({
+  mixed: {
+    required: '입력란이 비어있습니다.',
+  },
   string: {
     email: '잘못된 이메일 주소입니다.',
     min: '최소 ${min}자리 이상 입력해주세요.',
@@ -156,27 +166,48 @@ setLocale({
 
 export default withFormik({
   mapPropsToValues: () => ({ email: '', password: '' }),
-  validationSchema: ({ mode }) => {
-    if (mode === 'login') {
+  validationSchema: ({ mode }) => {   
+    const isLoginView = mode === 'signin'
+    if (isLoginView) {
       return yup.object().shape({
-        email: yup.string().required('이메일을 입력해주세요.'),
-        password: yup.string().required('비밀번호를 입력해주세요.')
+        email: yup.string().required(),
+        password: yup.string().required()
       })
     }
     return yup.object().shape({
-      email: yup.string().required('이메일을 입력해주세요.').email(),
-      password: yup.string().required('비밀번호를 입력해주세요.').min(8)
+      email: yup.string().required().email(),
+      password: yup.string().required().min(8)
     })
   },
-  handleSubmit: (values, { setSubmitting, setErros }) => {
-    alert(`email: ${values.email}\n password: ${values.password}`)
-    setSubmitting(false)
-      // .then(user => {
-      //   setSubmitting(false)
-      // })
-      // .catch(errors => {
-      //   setSubmitting(false)
-      //   setErros(errors)
-      // })
+  handleSubmit: (values, { props, setSubmitting, setErrors }) => {
+    const { email, password } = values
+
+    /* get csrf token from cookie */
+    const _csrf = document.cookie.split(';')[1].split('=')[1]
+
+    alert(`email: ${email}\n password: ${password}`)
+    axios.post('/user/signin', 
+    { email, password, _csrf },
+    { 
+      baseURL: 'http://127.0.0.1:8080',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+      timeout: 5000,
+    }).then((response) => {
+      setSubmitting(false)
+      const { success } = response.data
+      const { history } = props
+
+      if (success) {
+        history.push('/')
+      } else {
+        alert('로그인 실패')
+      }
+    }).catch((errors) => {
+      setSubmitting(false)
+      setErrors(errors)
+      alert(errors)
+    })
   }
 })(LoginForm)
