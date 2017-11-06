@@ -12,6 +12,7 @@ import Button from 'material-ui/Button'
 import Template from '../Template'
 import Image from 'shared/Image'
 import LoginForm from './LoginForm'
+import RegisterForm from './RegisterForm'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -72,10 +73,15 @@ const Login = ({
             />
           </div>
           <CardContent style={{ flex: 2 }}>
-            <LoginForm
-              mode={mode}
-              history={history}
-            />
+            {
+              isLoginView ? (
+                <LoginForm
+                  history={history}
+                />
+              ) : (
+                <RegisterForm />
+              )
+            }
           </CardContent>
         </Card>
         <NavWrapper>

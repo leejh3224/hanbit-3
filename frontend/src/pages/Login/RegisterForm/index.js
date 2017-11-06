@@ -9,8 +9,8 @@ import yup from 'yup'
 import { setLocale } from 'yup/lib/customLocale'
 import { compose, withState, withHandlers } from 'recompose'
 
-import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
+import Button from 'material-ui/Button'
 import KeyboardArrowRight from 'material-ui-icons/KeyboardArrowRight'
 import KeyboardArrowLeft from 'material-ui-icons/KeyboardArrowLeft'
 
@@ -25,76 +25,46 @@ const StyledForm = styled.form`
   align-items: center;
 `
 
-const Icon = styled.div`
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background-size: cover;
-  background-image: ${({ icon }) => `url(${require(`static/${icon}.png`)})`};
-`
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`
-
 const Error = styled(Typography).attrs({
   type: 'display3',
 })`
   color: ${({ theme }) => theme.color.error} !important;
 `
 
-/* 
- * for reusability, login form and 
- * register form(1st step) shares same component.
- * we use 'mode' prop to differenciate each of them
- */
-const LoginForm = ({
-  mode,
+const ButtonWrapper = styled.div`
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+`
+
+const RegisterForm = ({
+  step,
+  prevStep,
+  nextStep,
   values,
   errors,
   touched,
   handleChange,
   handleBlur,
-  handleSubmit,
-  isSubmitting,
-  nextStep,
-  prevStep,
-  step,
+  isSubmitting
 }) => {
-  
-  const isLoginView = mode === 'signin'
   const hasError = (field) => {
-    return !isLoginView &&
-    touched[field] &&
-    errors[field]
+    return touched[field] && errors[field]
   }
   return (
-    <StyledForm
-    
-      /* use onSubmit validation when user logs in */
-      onSubmit={(e) => {
-        const isEmpty = !values.email || !values.password
-        if (isLoginView && isEmpty) {
-          alert('입력란이 비어있습니다!')
-        }
-        handleSubmit(e)
-      }}
-    >
-      {/* stepper */}
-      {
-        !isLoginView && <Typography
-          type="display2"
-        >{`전체 3단계 (현재: ${step}단계 )`}</Typography>
-      }
-      {/* end of stepper */}
+    <StyledForm>
+      <Typography
+        type="display2"
+      >
+        {`전체 3단계 (현재: ${step}단계 )`}
+      </Typography>
       <Typography
         type="subheading"
         bold
-      >{isLoginView ? '로그인' : '1 단계: 회원정보 입력'}</Typography>
+      >{`${step} 단계: 회원정보 입력`}</Typography>
       <TextField
         error={hasError('email')}
-        required={!isLoginView}
+        required
         label="이메일"
         type="email"
         name="email"
@@ -111,14 +81,14 @@ const LoginForm = ({
       }
       <TextField
         error={hasError('password')}
-        required={!isLoginView}
+        required
         label="비밀번호"
         type="password"
         name="password"
         autoComplete="current-password"
         margin="normal"
         style={{ minWidth: 300 }}
-        helperText={!isLoginView && '보안을 위해 최소 8자리 이상 입력해주세요.'}
+        helperText={'보안을 위해 최소 8자리 이상 입력해주세요.'}
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.password}
@@ -127,71 +97,39 @@ const LoginForm = ({
         hasError('password') &&
         <Error>{errors.password}</Error>
       }
-      {/* 가입 화면 시에 버튼그룹을 평행하게 위치시킴 */}
-      <div
-        className="prev-next-button-group"
-        style={{ display: 'flex', width: 300, justifyContent: 'space-between' }}
-      >
-        {
-          !isLoginView && 
-          (
-            <Button
-              raised
-              type="button"
-              color="primary"
-              style={{ minWidth: 120, marginTop: 24, paddingRight: 40 }}
-              disabled={step <= 1}
-              onClick={prevStep}
-            >
-              {!isLoginView && <KeyboardArrowLeft />}
-              이전으로
-            </Button>
-          )
-        }
+      <ButtonWrapper>
+        <Button
+          raised
+          type="button"
+          color="primary"
+          style={{ minWidth: 120, marginTop: 24, paddingRight: 32 }}
+          disabled={step <= 1}
+          onClick={prevStep}
+        >
+          <KeyboardArrowLeft />
+          이전으로
+        </Button>
         <Button
           raised
           type="submit"
           color="primary"
-          style={{ minWidth: isLoginView ? 300 : 120, marginTop: 24, paddingLeft: !isLoginView && 40 }}
+          style={{ minWidth: 120, marginTop: 24, paddingLeft: 32 }}
           disabled={isSubmitting}
+          onClick={(e) => {
+            e.preventDefault()
+            nextStep()
+          }}
         >
           계속하기
-          {!isLoginView && <KeyboardArrowRight />}
+          <KeyboardArrowRight />
         </Button>
-      </div>
-      {/* 버튼 그룹 종료 */}
-      {
-        isLoginView && (
-        <div>
-          <p style={{ textAlign: 'center' }}>또는</p>
-          <ButtonWrapper>
-            <a href="http://127.0.0.1:8080/user/signup/facebook">
-              <Button fab style={{ marginRight: 16 }}>
-                <Icon icon="facebook" />
-              </Button>
-            </a>
-            <a href="http://127.0.0.1:8080/user/signup/naver">
-              <Button fab>
-                <Icon icon="naver" />
-              </Button>
-            </a>
-          </ButtonWrapper>
-        </div>
-        )
-      }
+      </ButtonWrapper>
     </StyledForm>
   )
 }
 
-LoginForm.propTypes = {
-  mode: PropTypes.string.isRequired,
-  values: PropTypes.object.isRequired,
-  errors: PropTypes.object,
-  touched: PropTypes.object.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleBlur: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  isSubmitting: PropTypes.bool.isRequired,
+RegisterForm.propTypes = {
+
 }
 
 /* eslint-disable no-template-curly-in-string */
@@ -219,19 +157,13 @@ const enhance = compose(
 
 export default enhance(withFormik({
   mapPropsToValues: () => ({ email: '', password: '' }),
-  validationSchema: ({ mode }) => {   
-    const isLoginView = mode === 'signin'
-    if(!isLoginView) {
-      return yup.object().shape({
-        email: yup.string().required().email(),
-        password: yup.string().required().min(8)
-      })
-    }
-
-    /* loginview: no field validation */
-    return yup.object()
+  validationSchema: () => {   
+    return yup.object().shape({
+      email: yup.string().required().email(),
+      password: yup.string().required().min(8)
+    })
   },
-  handleSubmit: (values, { props, setSubmitting, setErrors }) => {
+  handleSubmit: (values, { props, setSubmitting }) => {
     const { email, password } = values
 
     /* get csrf token from cookie */
@@ -269,4 +201,4 @@ export default enhance(withFormik({
       }
     })
   }
-})(LoginForm))
+})(RegisterForm))
