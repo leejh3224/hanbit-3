@@ -183,20 +183,20 @@ export default withFormik({
     const { email, password } = values
 
     /* get csrf token from cookie */
-    const _csrf = document.cookie.split(';')[1].split('=')[1]
+    //const _csrf = document.cookie.split(';')[1].split('=')[1]
 
     alert(`email: ${email}\n password: ${password}`)
     axios.post('/user/signin', 
-    { email, password, _csrf },
+    { email, password, //csrf 
+    },
     { 
-      baseURL: 'http://127.0.0.1:8080',
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
       timeout: 5000,
     }).then((response) => {
       setSubmitting(false)
-      const { success } = response.data
+      const success = response.status === 200
       const { history } = props
 
       if (success) {

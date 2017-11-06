@@ -35,8 +35,8 @@ const sess = {
     secure: false,
     httpOnly: true,
 
-    // 10 hrs duration
-    maxAge: 1000 * 60 * 60 * 10,
+    // 5 hrs duration
+    maxAge: 1000 * 60 * 60 * 50,
   }
 }
 

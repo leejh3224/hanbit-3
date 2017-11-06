@@ -6,13 +6,6 @@ import crypto from 'crypto'
 
 const routes = Router()
 
-const isAuthenticated = (req, res, next) => {
-  if (req.user) {
-    return next()
-  }
-  res.redirect('/user')
-}
-
 const storage = multer.diskStorage({
   destination: '../frontend/src/static/',
   filename: (req, file, cb) => {
@@ -26,14 +19,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage })
 routes.post('/', upload.single('img'), (req, res) => {
   res.send('success')
-})
-
-routes.get('/', isAuthenticated, (req, res) => {
-  res.redirect('/dashboard')
-})
-
-routes.get('/dashboard', isAuthenticated, (req, res) => {
-  res.render('dashboard')
 })
 
 routes.use('/user', userRouter)

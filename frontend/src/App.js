@@ -21,7 +21,10 @@ import Login from 'pages/Login'
 import Product from 'pages/Product'
 import PropTypes from 'prop-types'
 
+import cookie from 'cookie'
+
 const App = () => {
+  console.log(cookie.parse(document.cookie).user)
   return (
     <ThemeProvider theme={styledTheme}>
       <MuiThemeProvider theme={theme}>

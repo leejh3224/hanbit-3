@@ -17,16 +17,12 @@ import config from './config'
 const app = express()
 app.use(helmet())
 
-app.set('view engine', 'pug')
-
 app.use(logger('dev', {
   skip: () => app.get('env') === 'test'
 }))
 
 // allow cors only in dev environment
-if (config.env) {
-  app.use(cors())
-}
+app.use(cors())
 
 // connect db
 connectDB()
@@ -38,7 +34,10 @@ passportConfig(app, passport)
 
 // Routes
 app.use('/', routes)
-app.use(express.static(path.join(__dirname, '../public')))
+// app.use(express.static(path.join(__dirname, '../../frontend/build')))
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../../frontend/build'))
+// })
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {

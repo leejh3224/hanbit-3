@@ -3,27 +3,46 @@ import csrf from 'csurf'
 import passport from 'passport'
 import userControl from './user.controller'
 import { compose } from 'compose-middleware'
+import isEmpty from 'lodash/isEmpty'
 
 const router = Router()
 const csrfProtection = csrf({ cookie: true })
 
-const successRedirect = 'http://127.0.0.1:3000/'
-const failureRedirect = 'http://127.0.0.1:3000/signin'
-
-const isAuthenticated = (req, res, next) => {
-  if (!req.user) {
-    return next()
+const customCallback = (req, res) => {
+  const { passport } = req.session
+  const { email } = req.user
+  const { facebook, naver } = req.user.social
+  const cookieOptions = {
+    maxAge: 1000 * 60 * 60 * 5,
   }
-  res.redirect(successRedirect)
+  const rightProvider = () => {
+    if(isEmpty(facebook)) {
+      return naver
+    }
+    return facebook
+  }
+
+  if (req.user) {
+    if (req.user.social) {
+      res.cookie(
+        'user', 
+        `{sid:'${passport.user}', user:'${email ? email : rightProvider().displayName}'}`, cookieOptions)
+      res.redirect('http://127.0.0.1:3000/')
+    } else {
+      res.cookie(
+        'user', 
+        `{sid:'${passport.user}', user:'${email ? email : rightProvider().displayName}'}`, cookieOptions)
+      res.end()
+    }
+  } else {
+    res.status(404).end()
+  }
 }
 
 const middlewareWithPassport = (method) => compose([
-  csrfProtection,
-  isAuthenticated,
-  passport.authenticate(method, {
-    successRedirect,
-    failureRedirect
-  }),
+  //csrfProtection,
+  passport.authenticate(method),
+  customCallback,
 ])
 
 router.post('/signup',

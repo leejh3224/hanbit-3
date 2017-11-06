@@ -7,11 +7,12 @@ exports.index = (req, res) => {
 
 exports.logout = (req, res) => {
   if (!req.sessionID) {
-    res.redirect('/user')
+    res.redirect('http://127.0.0.1:3000/')
   }
   store.destroy(req.sessionID, () => {
+    res.clearCookie('user')
     req.session.destroy(() => {
-      res.redirect('/user')
+      res.redirect('http://127.0.0.1:3000/')
     })
   })
 }
