@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import cookie from 'cookie'
@@ -21,10 +20,10 @@ import 'normalize.css'
 
 import Header from 'pages/Header'
 import Footer from 'pages/Footer'
-
 import Home from 'pages/Home'
-import Login from 'pages/Login'
 import Product from 'pages/Product'
+
+import RedirectIf from 'lib/RedirectIf'
 
 class App extends Component {
   state = {
@@ -56,12 +55,7 @@ class App extends Component {
               <Header isLoggedIn={isLoggedIn} />
               <Switch>
                 <Route path="/product/:id" component={Product} />
-                <Route exact path="/(signin|signup)" render={() => {
-                  if (isLoggedIn) {
-                    return <Redirect to="/" />
-                  }
-                  return <Login />
-                }} />
+                <Route exact path="/(signin|signup)" render={() => RedirectIf(isLoggedIn)} />
                 <Route path="/:mode?" component={Home} />
                 <Route render={() => <p>not found</p>} />
               </Switch>

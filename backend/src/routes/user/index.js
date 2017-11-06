@@ -35,7 +35,7 @@ const customCallback = (req, res) => {
       res.end()
     }
   } else {
-    res.status(404).end()
+    res.end()
   }
 }
 

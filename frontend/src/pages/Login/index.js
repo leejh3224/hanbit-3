@@ -21,13 +21,13 @@ const Wrapper = styled.div`
 
   .card-image {
     flex: 1;
-    height: 500px;
+    height: 600px;
   }
 
   @media(max-width: 40em) {
     .card-image {
       flex: 0;
-      height: 300px;
+      height: 400px;
     }
   }
 `
@@ -42,7 +42,10 @@ const Login = ({
   history,
 }) => {
 
-  /* login or register */
+  /*
+   * login or register 
+   * @array: ['login' or 'login']
+   * */
   const mode = match.params[0]
   const isLoginView = mode === 'signin'
   const reverse = (mode) => {
@@ -64,16 +67,22 @@ const Login = ({
           <div className="card-image">
             <Image 
               src={require('static/gg.jpg')}
-              height={500}
+              height={600}
               lazy
             />
           </div>
           <CardContent style={{ flex: 2 }}>
-            <LoginForm mode={mode} history={history} />
+            <LoginForm
+              mode={mode}
+              history={history}
+            />
           </CardContent>
         </Card>
         <NavWrapper>
-          <NavLink to={`/${reverse(mode)}`} activeStyle={{ color: '#000' }}>
+          <NavLink
+            to={`/${reverse(mode)}`}
+            activeStyle={{ color: '#000' }}
+          >
             <Button>
             {
               isLoginView ? 

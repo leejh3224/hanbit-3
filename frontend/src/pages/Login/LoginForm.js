@@ -1,15 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import isEmpty from 'lodash/isEmpty'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+
+/* formik */
 import { withFormik } from 'formik'
 import yup from 'yup'
 import { setLocale } from 'yup/lib/customLocale'
+import { compose, withState, withHandlers } from 'recompose'
 
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
+import KeyboardArrowRight from 'material-ui-icons/KeyboardArrowRight'
+import KeyboardArrowLeft from 'material-ui-icons/KeyboardArrowLeft'
 
 import Typography from 'shared/Typography'
 
@@ -55,30 +58,43 @@ const LoginForm = ({
   handleBlur,
   handleSubmit,
   isSubmitting,
+  nextStep,
+  prevStep,
+  step,
 }) => {
+  
   const isLoginView = mode === 'signin'
   const hasError = (field) => {
     return !isLoginView &&
     touched[field] &&
     errors[field]
   }
-  
   return (
     <StyledForm
-
+    
       /* use onSubmit validation when user logs in */
       onSubmit={(e) => {
-        if (isLoginView && !isEmpty(errors)) {
-          alert(`${errors.email}, ${errors.password}`)
+        const isEmpty = !values.email || !values.password
+        if (isLoginView && isEmpty) {
+          alert('입력란이 비어있습니다!')
         }
         handleSubmit(e)
       }}
     >
+      {/* stepper */}
+      {
+        !isLoginView && <Typography
+          type="display2"
+        >{`전체 3단계 (현재: ${step}단계 )`}</Typography>
+      }
+      {/* end of stepper */}
       <Typography
         type="subheading"
         bold
-      >{isLoginView ? '로그인' : '가입: 1 단계'}</Typography>
+      >{isLoginView ? '로그인' : '1 단계: 회원정보 입력'}</Typography>
       <TextField
+        error={hasError('email')}
+        required={!isLoginView}
         label="이메일"
         type="email"
         name="email"
@@ -94,12 +110,15 @@ const LoginForm = ({
         <Error>{errors.email}</Error>
       }
       <TextField
+        error={hasError('password')}
+        required={!isLoginView}
         label="비밀번호"
         type="password"
         name="password"
         autoComplete="current-password"
         margin="normal"
         style={{ minWidth: 300 }}
+        helperText={!isLoginView && '보안을 위해 최소 8자리 이상 입력해주세요.'}
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.password}
@@ -108,15 +127,39 @@ const LoginForm = ({
         hasError('password') &&
         <Error>{errors.password}</Error>
       }
-      <Button
-        raised
-        type="submit"
-        color="primary"
-        style={{ minWidth: 300, marginTop: 24 }}
-        disabled={isSubmitting}
+      {/* 가입 화면 시에 버튼그룹을 평행하게 위치시킴 */}
+      <div
+        className="prev-next-button-group"
+        style={{ display: 'flex', width: 300, justifyContent: 'space-between' }}
       >
-        계속하기
-      </Button>
+        {
+          !isLoginView && 
+          (
+            <Button
+              raised
+              type="button"
+              color="primary"
+              style={{ minWidth: 120, marginTop: 24, paddingRight: 40 }}
+              disabled={step <= 1}
+              onClick={prevStep}
+            >
+              {!isLoginView && <KeyboardArrowLeft />}
+              이전으로
+            </Button>
+          )
+        }
+        <Button
+          raised
+          type="submit"
+          color="primary"
+          style={{ minWidth: isLoginView ? 300 : 120, marginTop: 24, paddingLeft: !isLoginView && 40 }}
+          disabled={isSubmitting}
+        >
+          계속하기
+          {!isLoginView && <KeyboardArrowRight />}
+        </Button>
+      </div>
+      {/* 버튼 그룹 종료 */}
       {
         isLoginView && (
         <div>
@@ -164,20 +207,29 @@ setLocale({
 })
 /* eslint-enable no-template-curly-in-string */
 
-export default withFormik({
+const enhance = compose(
+  withState('step', 'setStep', 1),
+  withHandlers({
+    nextStep: ({ setStep, step }) => 
+      () => setStep(step + 1),
+    prevStep: ({ setStep, step}) =>
+      () => setStep(step - 1),
+  }),
+)
+
+export default enhance(withFormik({
   mapPropsToValues: () => ({ email: '', password: '' }),
   validationSchema: ({ mode }) => {   
     const isLoginView = mode === 'signin'
-    if (isLoginView) {
+    if(!isLoginView) {
       return yup.object().shape({
-        email: yup.string().required(),
-        password: yup.string().required()
+        email: yup.string().required().email(),
+        password: yup.string().required().min(8)
       })
     }
-    return yup.object().shape({
-      email: yup.string().required().email(),
-      password: yup.string().required().min(8)
-    })
+
+    /* loginview: no field validation */
+    return yup.object()
   },
   handleSubmit: (values, { props, setSubmitting, setErrors }) => {
     const { email, password } = values
@@ -199,7 +251,6 @@ export default withFormik({
       const success = response.status === 200
       const { history } = props
 
-      console.log(success)
       if (success) {
         history.push('/', { isLoggedIn: true })
       } else {
@@ -207,8 +258,15 @@ export default withFormik({
       }
     }).catch((errors) => {
       setSubmitting(false)
-      setErrors(errors)
-      alert(errors)
+
+      const { status } = errors.response
+      if (status === 401) {
+        alert('잘못된 비밀번호 / 이메일!')
+      } else if (status === 403) {
+        alert('csrf토큰이 일치하지 않습니다.')
+      } else {
+        alert('로그인 실패')
+      }
     })
   }
-})(LoginForm)
+})(LoginForm))

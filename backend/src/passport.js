@@ -32,7 +32,7 @@ module.exports = (app, passport) => {
     User.findOne({ email })
         .then(user => {
           if (user) {
-            return done(null, false)
+            done(null, false)
           }
           const newUser = new User()
           newUser.email = email
@@ -51,14 +51,12 @@ module.exports = (app, passport) => {
     User.findOne({ email })
         .then(user => {
           if (!user) {
-            return done(null, false)
+            done(null, false)
           }
-
           if (!user.validatePassword(password)) {
-            return done(null, false)
+            done(null, false)
           }
-
-          return done(null, user)
+          done(null, user)
         })
         .catch(e => done(e, false))
   }))
@@ -80,7 +78,7 @@ module.exports = (app, passport) => {
                    .then(user => done(null, user))
                    .catch(e => done(e, false))
           }
-          return done(null, user)
+          done(null, user)
         })
         .catch(e => done(e, false))
   }))
@@ -102,7 +100,7 @@ module.exports = (app, passport) => {
                    .then(user => done(null, user))
                    .catch(e => done(e, false))
           }
-          return done(null, user)
+          done(null, user)
         })
         .catch(e => done(e, false))
   }))
