@@ -26,7 +26,7 @@ const customCallback = (req, res) => {
     if (req.user.social) {
       res.cookie(
         'user', 
-        `{sid:'${passport.user}', user:'${email ? email : rightProvider().displayName}'}`, cookieOptions)
+        `{sid:${passport.user}, user:${email ? email : rightProvider().displayName}}`, cookieOptions)
       res.redirect('http://127.0.0.1:3000/')
     } else {
       res.cookie(

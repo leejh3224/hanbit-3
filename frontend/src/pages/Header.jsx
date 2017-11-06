@@ -9,6 +9,7 @@ import Toolbar from 'material-ui/Toolbar'
 import IconButton from 'material-ui/IconButton'
 import MenuIcon from 'material-ui-icons/Menu'
 import SearchIcon from 'material-ui-icons/Search'
+import LockOpenIcon from 'material-ui-icons/LockOpen'
 import PersonOutlineIcon from 'material-ui-icons/PersonOutline'
 
 import AppBar from 'shared/AppBar'
@@ -51,6 +52,12 @@ class Header extends Component {
   }
 
   render() {
+    
+    /* 
+     * 로컬 로그인의 경우에는 history.push로부터 상태를 전달받고,
+     * 소셜 로그인의 경우 App 컴포넌트에서 cookie를 읽어서 전달
+     */
+    const { isLoggedIn } = this.props.location.state || this.props
     const { open } = this.state
     const { handleClickOpen, handleRequestClose } = this
     return (
@@ -80,11 +87,21 @@ class Header extends Component {
             handleClickOpen={handleClickOpen}
             handleRequestClose={handleRequestClose}
           />
-          <Link to="/signin">
-            <IconButton aria-label="PersonOutline">
-              <PersonOutlineIcon />
-            </IconButton>
-          </Link>
+          {
+            isLoggedIn ? (
+              <a href="http://127.0.0.1:8080/user/logout">
+                <IconButton aria-label="LockOpen">
+                  <LockOpenIcon />
+                </IconButton>
+              </a>
+            ) : (
+              <Link to="/signin">
+                <IconButton aria-label="PersonOutline">
+                  <PersonOutlineIcon />
+                </IconButton>
+              </Link>
+            )
+          }
         </Toolbar>
       </AppBar>
     )

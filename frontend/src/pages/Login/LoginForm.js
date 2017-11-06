@@ -199,8 +199,9 @@ export default withFormik({
       const success = response.status === 200
       const { history } = props
 
+      console.log(success)
       if (success) {
-        history.push('/')
+        history.push('/', { isLoggedIn: true })
       } else {
         alert('로그인 실패')
       }
