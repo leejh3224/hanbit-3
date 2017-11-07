@@ -6,7 +6,9 @@ import LazyLoader from 'lib/LazyLoader'
 
 const StyledImage = styled.div`
   width: 100%;
-  height: ${({ height }) => height}px;
+  // string type: x%, number type: pixel
+  height: ${({ height }) => typeof height === 'string' ? height : `${height}px`};
+  min-height: ${({ minHeight }) => minHeight}px;
   background-image: ${({ src }) => `url(${ src })`};
   background-size: cover;
   background-position: center;
@@ -15,18 +17,34 @@ const StyledImage = styled.div`
 const Image = ({
   src,
   height,
+  minHeight,
   lazy,
   children,
 }) => {
   return (
-    <div>
+    <div
+      style={{
+
+        // string type: x%, number type: pixel
+        maxHeight: typeof height === 'number' && '100%',
+        height: typeof height === 'string' && '100%',
+      }}
+    >
       {
         lazy ? (
           <LazyLoader height={height}>
-            <StyledImage height={height} src={src} />
+            <StyledImage
+              height={height}
+              minHeight={minHeight}
+              src={src}
+            />
           </LazyLoader>
         ) : (
-          <StyledImage height={height} src={src}>
+          <StyledImage
+            height={height}
+            minHeight={minHeight}
+            src={src}
+          >
             {children}
           </StyledImage>
         )
@@ -37,7 +55,11 @@ const Image = ({
 
 Image.propTypes = {
   src: PropTypes.string.isRequired,
-  height: PropTypes.number.isRequired,
+  height: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired,
+  ]),
+  minHeight: PropTypes.number,
   lazy: PropTypes.bool,
   children: PropTypes.element,
 }

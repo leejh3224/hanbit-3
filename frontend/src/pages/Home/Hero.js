@@ -32,6 +32,7 @@ const Hero = ({
     <Image
       src={src}
       height={height}
+      minHeight={250}
     >
       <Wrapper>
         <Typography bold>You will feel better.</Typography>

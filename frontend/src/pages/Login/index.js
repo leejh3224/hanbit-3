@@ -14,22 +14,41 @@ import Image from 'shared/Image'
 import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
 
+const StyledCard = styled(Card)`
+  display: flex;
+  margin: 56px auto 16px auto;
+  max-width: 1000px;
+  min-height: 600px;
+
+  @media(max-width: 40em) {
+    min-height: 400px;
+  }
+`
+
 const Wrapper = styled.div`
   width: 100%;
   box-sizing: border-box;
 
+  // 카드와 헤더 사이의 간격
   padding: ${({ theme }) => theme.spacing * 2}px;
 
   .card-image {
     flex: 1;
-    height: 600px;
   }
 
   @media(max-width: 40em) {
     .card-image {
       flex: 0;
-      height: 400px;
     }
+  }
+`
+
+const StyledCardContent = styled(CardContent)`
+  flex: 2;
+  padding: 32px;
+
+  @media(max-width: 40em) {
+    padding: 8px;
   }
 `
 
@@ -58,21 +77,14 @@ const Login = ({
   return (
     <Template>
       <Wrapper>
-        <Card
-          style={{
-            display: 'flex',
-            margin: '56px auto 16px auto',
-            maxWidth: 1000,
-          }}
-        >
+        <StyledCard>
           <div className="card-image">
             <Image 
               src={require('static/gg.jpg')}
-              height={600}
-              lazy
+              height={'100%'}
             />
           </div>
-          <CardContent style={{ flex: 2 }}>
+          <StyledCardContent>
             {
               isLoginView ? (
                 <LoginForm
@@ -82,8 +94,8 @@ const Login = ({
                 <RegisterForm />
               )
             }
-          </CardContent>
-        </Card>
+          </StyledCardContent>
+        </StyledCard>
         <NavWrapper>
           <NavLink
             to={`/${reverse(mode)}`}

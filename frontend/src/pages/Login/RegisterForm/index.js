@@ -8,8 +8,10 @@ import { withFormik } from 'formik'
 import yup from 'yup'
 import { setLocale } from 'yup/lib/customLocale'
 import { compose, withState, withHandlers } from 'recompose'
+import Step1 from './Step1'
+import Step2 from './Step2'
+import Step3 from './Step3'
 
-import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import KeyboardArrowRight from 'material-ui-icons/KeyboardArrowRight'
 import KeyboardArrowLeft from 'material-ui-icons/KeyboardArrowLeft'
@@ -25,32 +27,21 @@ const StyledForm = styled.form`
   align-items: center;
 `
 
-const Error = styled(Typography).attrs({
-  type: 'display3',
-})`
-  color: ${({ theme }) => theme.color.error} !important;
-`
-
 const ButtonWrapper = styled.div`
   display: flex;
   width: 300px;
   justify-content: space-between;
 `
 
+const stepNames = ['회원정보 입력', '약관 동의', '개인정보 입력']
+
 const RegisterForm = ({
   step,
   prevStep,
   nextStep,
-  values,
-  errors,
-  touched,
-  handleChange,
-  handleBlur,
-  isSubmitting
+  isSubmitting,
+  ...props,
 }) => {
-  const hasError = (field) => {
-    return touched[field] && errors[field]
-  }
   return (
     <StyledForm>
       <Typography
@@ -61,41 +52,13 @@ const RegisterForm = ({
       <Typography
         type="subheading"
         bold
-      >{`${step} 단계: 회원정보 입력`}</Typography>
-      <TextField
-        error={hasError('email')}
-        required
-        label="이메일"
-        type="email"
-        name="email"
-        autoComplete="email"
-        margin="normal"
-        style={{ minWidth: 300 }}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={values.email}
-      />
+      >{`${step} 단계: ${stepNames[step - 1]}`}</Typography>
       {
-        hasError('email') &&
-        <Error>{errors.email}</Error>
-      }
-      <TextField
-        error={hasError('password')}
-        required
-        label="비밀번호"
-        type="password"
-        name="password"
-        autoComplete="current-password"
-        margin="normal"
-        style={{ minWidth: 300 }}
-        helperText={'보안을 위해 최소 8자리 이상 입력해주세요.'}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={values.password}
-      />
-      {
-        hasError('password') &&
-        <Error>{errors.password}</Error>
+        { 
+          1: <Step1 {...props} />,
+          2: <Step2 {...props} />,
+          3: <Step3 {...props} />,
+        }[step]
       }
       <ButtonWrapper>
         <Button
@@ -129,7 +92,16 @@ const RegisterForm = ({
 }
 
 RegisterForm.propTypes = {
-
+  values: PropTypes.object.isRequired,
+  errors: PropTypes.object,
+  touched: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleBlur: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  step: PropTypes.number.isRequired,
+  prevStep: PropTypes.func.isRequired,
+  nextStep: PropTypes.func.isRequired,
 }
 
 /* eslint-disable no-template-curly-in-string */
@@ -149,7 +121,7 @@ const enhance = compose(
   withState('step', 'setStep', 1),
   withHandlers({
     nextStep: ({ setStep, step }) => 
-      () => setStep(step + 1),
+      () => step < 3 && setStep(step + 1),
     prevStep: ({ setStep, step}) =>
       () => setStep(step - 1),
   }),

@@ -9,6 +9,8 @@ const Wrapper = styled.div`
 
 const Content = styled.main`
   width: 100%;
+  height: 100vh;
+  overflow: auto;
   display: flex;
   flex-direction: column;
 `

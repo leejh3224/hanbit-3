@@ -31,9 +31,6 @@ const LoginForm = ({
   handleBlur,
   handleSubmit,
   isSubmitting,
-  nextStep,
-  prevStep,
-  step,
 }) => {
   
   return (
@@ -96,9 +93,6 @@ LoginForm.propTypes = {
   handleBlur: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
-  step: PropTypes.number.isRequired,
-  prevStep: PropTypes.func.isRequired,
-  nextStep: PropTypes.func.isRequired,
 }
 
 export default withFormik({
