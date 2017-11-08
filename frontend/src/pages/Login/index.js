@@ -37,6 +37,7 @@ const Wrapper = styled.div`
   }
 
   @media(max-width: 40em) {
+    padding: 0;
     .card-image {
       flex: 0;
     }
@@ -46,6 +47,7 @@ const Wrapper = styled.div`
 const StyledCardContent = styled(CardContent)`
   flex: 2;
   padding: 32px;
+  overflow: hidden;
 
   @media(max-width: 40em) {
     padding: 8px;
@@ -91,7 +93,9 @@ const Login = ({
                   history={history}
                 />
               ) : (
-                <RegisterForm />
+                <RegisterForm
+                  history={history}
+                />
               )
             }
           </StyledCardContent>

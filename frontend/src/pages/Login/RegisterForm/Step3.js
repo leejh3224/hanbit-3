@@ -25,7 +25,7 @@ const Step3 = ({
   setFieldValue,
 }) => {
   const hasError = (field) => {
-    return touched[field] && errors[field]
+    return !!(touched[field] && errors[field])
   }
 
   // global daum object
@@ -37,6 +37,7 @@ const Step3 = ({
         required
         label="이름(실명)"
         type="text"
+        helperText="배송확인 용도로만 사용됩니다."
         name="name"
         autoComplete="name"
         margin="normal"
@@ -55,6 +56,7 @@ const Step3 = ({
         label="전화번호(휴대전화)"
         type="text"
         name="phone"
+        helperText="배송확인 용도로만 사용됩니다."
         autoComplete="phone"
         margin="normal"
         style={{ minWidth: 300 }}
@@ -62,8 +64,8 @@ const Step3 = ({
         onBlur={handleBlur}
         value={values.phone}
         customInput={TextField}
-        placeholder="+82 (010) XXXX-XXXX"
-        format="+82 (010) ####-####"
+        placeholder="(010) XXXX-XXXX"
+        format="(010) ####-####"
         mask="__"
       />
       {
@@ -72,15 +74,12 @@ const Step3 = ({
       }
       <div style={{ display: 'flex', maxWidth: 300, margin: '16px 0 8px 0', height: 48 }}>
         <TextField 
+          error={hasError('postcode')}
           placeholder="우편번호*"
           inputProps={{ readOnly: true, id: "postcode" }}
           style={{ marginRight: 24, alignSelf: 'flex-end' }}
           value={values.postcode}
         />
-        {
-          hasError('postcode') &&
-          <ErrorMessage>{errors.postcode}</ErrorMessage>
-        }
         <Button
           raised
           color="primary"
@@ -100,6 +99,10 @@ const Step3 = ({
           검색하기
         </Button>
       </div>
+      {
+        hasError('postcode') &&
+        <ErrorMessage>{errors.postcode}</ErrorMessage>
+      }
       <TextField
         error={hasError('address1')}
         placeholder="주소*"
@@ -119,6 +122,7 @@ const Step3 = ({
         required
         label="상세주소"
         type="text"
+        helperText="원활한 배송을 위해 정확하게 기입해주세요."
         name="address2"
         margin="normal"
         style={{ minWidth: 300 }}

@@ -46,7 +46,10 @@ const Hero = ({
 
 Hero.propTypes = {
   src: PropTypes.string.isRequired,
-  height: PropTypes.number.isRequired,
+  height: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired,
+  ]),
 }
 
 export default Hero

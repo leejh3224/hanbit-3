@@ -21,7 +21,7 @@ const Step1 = ({
   values,
 }) => {
   const hasError = (field) => {
-    return touched[field] && errors[field]
+    return !!(touched[field] && errors[field])
   }
   return (
     <Wrapper>

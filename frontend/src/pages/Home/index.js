@@ -18,7 +18,7 @@ const Home = ({
     <Template>
       <Hero
         src={require('static/back.jpg')}
-        height={'40vh'}
+        height={'40%'}
       />
       <ProductList />
     </Template>

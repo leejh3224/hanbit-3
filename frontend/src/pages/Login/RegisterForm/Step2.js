@@ -17,10 +17,14 @@ const Wrapper = styled.div`
 `
 
 const Step2 = ({
+  touched,
   errors,
   handleChange,
   values,
 }) => {
+  const hasError = (field) => {
+    return !!(touched[field] && errors[field])
+  }
   return (
     <Wrapper>
       <TermsOfService />
@@ -31,12 +35,13 @@ const Step2 = ({
             checked={values.agreed}
             name="agreed"
             onChange={handleChange}
-            value={values.agreed}
+            value="agreed"
           />
         }
         label="위의 서비스 이용약관 및 개인정보 수집·이용에 동의합니다."
       />
       {
+        hasError('agreed') &&
         <ErrorMessage>{errors.agreed}</ErrorMessage>
       }
     </Wrapper>

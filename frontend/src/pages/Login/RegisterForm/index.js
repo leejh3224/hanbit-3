@@ -41,7 +41,7 @@ const RegisterForm = ({
   nextStep,
   isSubmitting,
   handleSubmit,
-  setErrors,
+  setFieldTouched,
   ...props,
 }) => {
   return (
@@ -89,8 +89,18 @@ const RegisterForm = ({
             // 만약 1~2단계라면 다음 단계로 넘어가고 그 이후에는 제출
             if (step < 3) {
               e.preventDefault()
+              if (step === 1) {
+                if(!values.email) {
+                  setFieldTouched('email', true)
+                  return
+                }
+                if (!values.password) {
+                  setFieldTouched('password', true)
+                  return
+                }
+              } 
               if (step === 2 && !values.agreed) {
-                setErrors({ agreed: '가입을 계속 진행하시려면 약관에 동의해야 합니다.' })
+                setFieldTouched('agreed', true)
                 return
               }
               nextStep()
@@ -116,18 +126,20 @@ RegisterForm.propTypes = {
   step: PropTypes.number.isRequired,
   prevStep: PropTypes.func.isRequired,
   nextStep: PropTypes.func.isRequired,
+  setFieldTouched: PropTypes.func.isRequired,
 }
 
 /* eslint-disable no-template-curly-in-string */
 /* locale error message */
 setLocale({
   mixed: {
-    required: '',
+    required: '필수입력 항목입니다.',
     oneOf: '가입을 계속 진행하시려면 약관에 동의해야 합니다.',
   },
   string: {
     email: '잘못된 이메일 주소입니다.',
-    min: '최소 ${min}자리 이상 입력해주세요.',
+    min: '공백 제외 ${min}자리 이상 입력해주세요.',
+    max: '최대 ${max}자까지 입력가능합니다.'
   },
 })
 /* eslint-enable no-template-curly-in-string */
@@ -155,25 +167,39 @@ export default enhance(withFormik({
   }),
   validationSchema: () => {   
     return yup.object().shape({
-      email: yup.string().required().email(),
-      password: yup.string().required().min(8),
+      email: yup.string().required().email().max(40),
+      password: yup.string().matches(/^[a-zA-Z0-9]+$/g, '영문과 숫자만 사용가능합니다.')
+      .required().min(8).max(24),
       agreed: yup.boolean().oneOf([true]),
-      name: yup.string().required(),
+      name: yup.string().matches(/^[가-힇]+$/g, '공백, 영문, 자모음 형태는 허용되지 않습니다.')
+      .required().max(24),
       phone: yup.string().required(),
       postcode: yup.string().required(),
       address1: yup.string().required(),
-      address2: yup.string().required(),
+      address2: yup.string().required().max(64),
     })
   },
   handleSubmit: (values, { props, setSubmitting }) => {
-    const { email, password } = values
+    let { email, address2, phone } = values
+    const { password, name, postcode, address1 } = values
+    email = email.trim()
+    address2 = address2.trim()
+    phone = phone.slice(6)
 
-    /* get csrf token from cookie */
-    //const _csrf = document.cookie.split(';')[1].split('=')[1]
-
-    alert(`email: ${email}\n password: ${password}`)
-    axios.post('/user/signin', 
-    { email, password, //csrf 
+    alert(`email: ${email},
+    password: ${password},
+    name: ${name}, phone: ${phone},
+    postcode: ${postcode}, address1: ${address1},
+    address2: ${address2}`)
+    axios.post('/user/signup',
+    { 
+      email,
+      password,
+      name,
+      phone,
+      postcode,
+      address1,
+      address2,
     },
     { 
       headers: {
@@ -188,19 +214,13 @@ export default enhance(withFormik({
       if (success) {
         history.push('/', { isLoggedIn: true })
       } else {
-        alert('로그인 실패')
+        alert('가입 실패')
       }
     }).catch((errors) => {
       setSubmitting(false)
-
-      const { status } = errors.response
-      if (status === 401) {
-        alert('잘못된 비밀번호 / 이메일!')
-      } else if (status === 403) {
-        alert('csrf토큰이 일치하지 않습니다.')
-      } else {
-        alert('로그인 실패')
-      }
+      console.log(errors)
+          
+      alert(`${errors}`)
     })
   }
 })(RegisterForm))

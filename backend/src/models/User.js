@@ -19,6 +19,11 @@ const User = new Schema({
       displayName: String,
     }
   },
+  name: String,
+  phone: String,
+  postcode: String,
+  address1: String,
+  address2: String,
   purchase_history: {
     purchased_at: {
       type: Date,

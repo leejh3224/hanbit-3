@@ -28,7 +28,16 @@ module.exports = (app, passport) => {
   passport.use('local-signup', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
-  }, (email, password, done) => {
+    passReqToCallback : true,
+  }, (req, email, password, done) => {
+    const {
+      name,
+      phone,
+      postcode,
+      address1,
+      address2,
+    } = req.body
+    
     User.findOne({ email })
         .then(user => {
           if (user) {
@@ -37,6 +46,11 @@ module.exports = (app, passport) => {
           const newUser = new User()
           newUser.email = email
           newUser.password = newUser.generateHash(password)
+          newUser.name = name
+          newUser.phone = phone
+          newUser.postcode = postcode
+          newUser.address1 = address1
+          newUser.address2 = address2
           return newUser.save()
                  .then(user => done(null, user))
                  .catch(e => done(e, false))

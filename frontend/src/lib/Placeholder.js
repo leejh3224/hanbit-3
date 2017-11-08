@@ -9,10 +9,12 @@ const PlaceholderWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: ${({ height }) => height}px;
+  height: ${({ height }) => typeof height === 'string' ? height : `${height}px`};
+  min-height: ${({ minHeight }) => minHeight}px;
 `
 
 const Placeholder = ({
+  minHeight,
   height,
 }) => {
   return (
@@ -23,7 +25,11 @@ const Placeholder = ({
 }
 
 Placeholder.propTypes = {
-  height: PropTypes.number,
+  height: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  minHeight: PropTypes.number,
 }
 
 export default Placeholder

@@ -7,11 +7,12 @@ import FadeIn from './animation/FadeIn'
 
 const LazyLoader = ({
   height,
+  minHeight,
   children,
 }) => {
   return (
     <LazyLoad
-      placeholder={<Placeholder height={height} />}
+      placeholder={<Placeholder height={height} minHeight={minHeight} />}
       debounce={300}
       once
     >
