@@ -4,19 +4,13 @@ import styled from 'styled-components'
 
 import TextField from 'material-ui/TextField'
 
-import Typography from 'shared/Typography'
+import ErrorMessage from 'shared/ErrorMessage'
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
-
-const Error = styled(Typography).attrs({
-  type: 'display3',
-})`
-  color: ${({ theme }) => theme.color.error} !important;
 `
 
 const Step1 = ({
@@ -46,7 +40,7 @@ const Step1 = ({
       />
       {
         hasError('email') &&
-        <Error>{errors.email}</Error>
+        <ErrorMessage>{errors.email}</ErrorMessage>
       }
       <TextField
         error={hasError('password')}
@@ -64,7 +58,7 @@ const Step1 = ({
       />
       {
         hasError('password') &&
-        <Error>{errors.password}</Error>
+        <ErrorMessage>{errors.password}</ErrorMessage>
       }
     </Wrapper>
   )

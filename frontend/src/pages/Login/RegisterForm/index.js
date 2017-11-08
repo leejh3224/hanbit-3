@@ -40,10 +40,14 @@ const RegisterForm = ({
   prevStep,
   nextStep,
   isSubmitting,
+  handleSubmit,
   ...props,
 }) => {
   return (
-    <StyledForm>
+    <StyledForm onSubmit={(e) => {
+      alert('submitting..')
+      handleSubmit(e)
+    }}>
       <Typography
         type="display2"
       >
@@ -79,8 +83,10 @@ const RegisterForm = ({
           style={{ minWidth: 120, marginTop: 24, paddingLeft: 32 }}
           disabled={isSubmitting}
           onClick={(e) => {
-            e.preventDefault()
-            nextStep()
+            if (step < 3) {
+              e.preventDefault()
+              nextStep()
+            }
           }}
         >
           계속하기
@@ -128,11 +134,24 @@ const enhance = compose(
 )
 
 export default enhance(withFormik({
-  mapPropsToValues: () => ({ email: '', password: '' }),
+  mapPropsToValues: () => ({
+    email: '',
+    password: '',
+    name: '',
+    phone: '',
+    postcode: '',
+    address1: '',
+    address2: '',
+  }),
   validationSchema: () => {   
     return yup.object().shape({
       email: yup.string().required().email(),
-      password: yup.string().required().min(8)
+      password: yup.string().required().min(8),
+      name: yup.string().required(),
+      phone: yup.string().required(),
+      postcode: yup.string().required(),
+      address1: yup.string().required(),
+      address2: yup.string().required(),
     })
   },
   handleSubmit: (values, { props, setSubmitting }) => {
