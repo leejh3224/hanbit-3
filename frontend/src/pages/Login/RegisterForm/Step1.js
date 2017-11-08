@@ -51,7 +51,7 @@ const Step1 = ({
         autoComplete="current-password"
         margin="normal"
         style={{ minWidth: 300 }}
-        helperText={'보안을 위해 최소 8자리 이상 입력해주세요.'}
+        helperText={'비밀번호는 8자리이상으로 설정해주세요.'}
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.password}
@@ -66,7 +66,7 @@ const Step1 = ({
 
 Step1.propTypes = {
   values: PropTypes.object.isRequired,
-  errors: PropTypes.object,
+  errors: PropTypes.object.isRequired,
   touched: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleBlur: PropTypes.func.isRequired,

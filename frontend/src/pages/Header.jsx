@@ -68,7 +68,7 @@ class Header extends Component {
           </IconButton>
           <Typography 
             type="headline"
-            bold
+            data-bold
             style={{ marginLeft: 12, marginTop: 3 }}
           >
             <Link to="/" style={{ textDecoration: 'none', color: '#000' }}>

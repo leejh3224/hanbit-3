@@ -4,8 +4,7 @@ import styled from 'styled-components'
 
 import { FormControlLabel } from 'material-ui/Form'
 import Checkbox from 'material-ui/Checkbox'
-
-import Typography from 'shared/Typography'
+import ErrorMessage from 'shared/ErrorMessage'
 
 import TermsOfService from './TermsOfService'
 import PrivacyPolicy from './PrivacyPolicy'
@@ -17,7 +16,11 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
-const Step2 = () => {
+const Step2 = ({
+  errors,
+  handleChange,
+  values,
+}) => {
   return (
     <Wrapper>
       <TermsOfService />
@@ -25,19 +28,25 @@ const Step2 = () => {
       <FormControlLabel
         control={
           <Checkbox
-            checked={true}
-            onChange={() => true}
-            value="x"
+            checked={values.agreed}
+            name="agreed"
+            onChange={handleChange}
+            value={values.agreed}
           />
         }
         label="위의 서비스 이용약관 및 개인정보 수집·이용에 동의합니다."
       />
+      {
+        <ErrorMessage>{errors.agreed}</ErrorMessage>
+      }
     </Wrapper>
   )
 }
 
 Step2.propTypes = {
-
+  errors: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  values: PropTypes.object.isRequired,
 }
 
 export default Step2

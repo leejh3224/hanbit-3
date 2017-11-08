@@ -41,6 +41,7 @@ const RegisterForm = ({
   nextStep,
   isSubmitting,
   handleSubmit,
+  setErrors,
   ...props,
 }) => {
   return (
@@ -55,7 +56,7 @@ const RegisterForm = ({
       </Typography>
       <Typography
         type="subheading"
-        bold
+        data-bold
       >{`${step} 단계: ${stepNames[step - 1]}`}</Typography>
       {
         { 
@@ -83,8 +84,15 @@ const RegisterForm = ({
           style={{ minWidth: 120, marginTop: 24, paddingLeft: 32 }}
           disabled={isSubmitting}
           onClick={(e) => {
+            const { values } = props
+
+            // 만약 1~2단계라면 다음 단계로 넘어가고 그 이후에는 제출
             if (step < 3) {
               e.preventDefault()
+              if (step === 2 && !values.agreed) {
+                setErrors({ agreed: '가입을 계속 진행하시려면 약관에 동의해야 합니다.' })
+                return
+              }
               nextStep()
             }
           }}
@@ -114,7 +122,8 @@ RegisterForm.propTypes = {
 /* locale error message */
 setLocale({
   mixed: {
-    required: '입력란이 비어있습니다.',
+    required: '',
+    oneOf: '가입을 계속 진행하시려면 약관에 동의해야 합니다.',
   },
   string: {
     email: '잘못된 이메일 주소입니다.',
@@ -137,6 +146,7 @@ export default enhance(withFormik({
   mapPropsToValues: () => ({
     email: '',
     password: '',
+    agreed: false,
     name: '',
     phone: '',
     postcode: '',
@@ -147,6 +157,7 @@ export default enhance(withFormik({
     return yup.object().shape({
       email: yup.string().required().email(),
       password: yup.string().required().min(8),
+      agreed: yup.boolean().oneOf([true]),
       name: yup.string().required(),
       phone: yup.string().required(),
       postcode: yup.string().required(),

@@ -50,7 +50,7 @@ const FullScreenDialog = ({
             </IconButton>
             <Typography
               type="headline"
-              bold
+              data-bold
               style={{ flex: 1, marginTop: 3, marginLeft: 12 }}
             >{name}</Typography>
             <Button onClick={handleRequestClose}>

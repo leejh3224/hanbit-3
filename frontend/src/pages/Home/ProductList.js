@@ -34,7 +34,7 @@ const ProductList = () => {
     <Wrapper>
       <Typography
           type="subheading"
-          bold
+          data-bold
       >What's New</Typography>
       <div className="decorator" />
       <ProductCard />

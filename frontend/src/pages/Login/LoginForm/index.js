@@ -47,7 +47,7 @@ const LoginForm = ({
     >
       <Typography
         type="subheading"
-        bold
+        data-bold
       >로그인</Typography>
       <TextField
         label="이메일"

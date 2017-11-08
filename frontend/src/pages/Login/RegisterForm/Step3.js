@@ -137,7 +137,7 @@ const Step3 = ({
 
 Step3.propTypes = {
   values: PropTypes.object.isRequired,
-  errors: PropTypes.object,
+  errors: PropTypes.object.isRequired,
   touched: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleBlur: PropTypes.func.isRequired,

@@ -23,7 +23,7 @@ const ProductCard = () => {
       <CardContent style={{ padding: '16px 16px 0 16px' }}>
         <Typography
           type="headline"
-          bold
+          data-bold
         >
           Lorem ipsum dolor sit amet.
         </Typography>

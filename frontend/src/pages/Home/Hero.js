@@ -35,7 +35,7 @@ const Hero = ({
       minHeight={250}
     >
       <Wrapper>
-        <Typography bold>You will feel better.</Typography>
+        <Typography data-bold>You will feel better.</Typography>
         <SearchInput
           width={400}
         />
