@@ -19,15 +19,17 @@ const Image = ({
   lazy,
   children,
 }) => {
+  const ImageStyle = {
+    
+    // string type: x%, number type: pixel
+    // min-height: 랜드스케이프 모드에서 최소 높이 보장
+    width: '100%',
+    height: typeof height === 'string' ? height : `${height}px`,
+    minHeight: `${minHeight}px`,
+  }
   return (
     <div
-      style={{
-
-        // string type: x%, number type: pixel
-        // min-height: 랜드스케이프 모드에서 최소 높이 보장
-        height: typeof height === 'string' ? height : `${height}px`,
-        minHeight: `${minHeight}px`,
-      }}
+      style={ImageStyle}
     >
       {
         lazy ? (
@@ -35,7 +37,9 @@ const Image = ({
             <StyledImage
               height={height}
               src={src}
-            />
+            >
+              {children}
+            </StyledImage>
           </LazyLoader>
         ) : (
           <StyledImage

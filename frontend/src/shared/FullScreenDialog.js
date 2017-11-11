@@ -40,7 +40,7 @@ const FullScreenDialog = ({
         onRequestClose={handleRequestClose}
         transition={Transition}
       >
-        <AppBar>
+        <AppBar data-transparent>
           <Toolbar disableGutters>
             <IconButton
               onClick={handleRequestClose}

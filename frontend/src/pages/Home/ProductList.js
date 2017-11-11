@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import ProductCard from 'shared/ProductCard'
 import Typography from 'shared/Typography'
+import TabBar from 'shared/TabBar'
 
 const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding: 0 ${({ theme }) => theme.spacing * 1}px;
+
   > h3 {
     width: 100%;
     padding: ${({ theme }) => theme.spacing * 2}px;
@@ -22,31 +24,44 @@ const Wrapper = styled.div`
     ${theme.spacing * 2}px ${theme.spacing * 1}px`};
     border-bottom: 5px solid black;
   }
-  > .card {
-    flex: 1;
-    min-width: 280px;
-    margin: ${({ theme }) => theme.spacing * 1}px;
+
+  @media(max-width: 40em) {
+    padding: 8px;
   }
 `
 
-const ProductList = () => {
-  return (
-    <Wrapper>
-      <Typography
-          type="subheading"
-          data-bold
-      >What's New</Typography>
-      <div className="decorator" />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-    </Wrapper>
-  )
+class ProductList extends Component {
+  static propTypes = {}
+  state = {
+    value: 0
+  }
+  handleChange = (e, value) => {
+    this.setState({ value })
+  }
+  render() {
+    const { value } = this.state
+    const { products } = this.props
+    const { handleChange } = this
+
+    return (
+      <Wrapper>
+        <Typography
+            type="subheading"
+            data-bold
+        >What's New</Typography>
+        <div className="decorator" />
+        <TabBar
+          value={value}
+          handleChange={handleChange}
+        >
+          { 
+            Object.values(products)
+            .map(product => <ProductCard key={product._id} product={product} />) 
+          }
+        </TabBar>
+      </Wrapper>
+    )
+  }
 }
 
 ProductList.propTypes = {

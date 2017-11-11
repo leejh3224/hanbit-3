@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import cookie from 'cookie'
+import axios from 'axios'
 
 /* meterial-ui */
 import { MuiThemeProvider } from 'material-ui/styles'
@@ -21,6 +22,7 @@ import 'normalize.css'
 import Header from 'pages/Header'
 import Footer from 'pages/Footer'
 import Home from 'pages/Home'
+import Welcome from 'pages/Welcome'
 import Product from 'pages/Product'
 
 import RedirectIf from 'lib/RedirectIf'
@@ -28,25 +30,54 @@ import RedirectIf from 'lib/RedirectIf'
 class App extends Component {
   state = {
     users: null,
+    products: null,
   }
   componentWillMount() {
     const { user } = cookie.parse(document.cookie)
 
     if (user) {
-      const sid = user.split(',')[0].split(":")[1].split("}")[0]
-      const username = user.split(',')[1].split(":")[1].split("}")[0]
+      const getField = (str, index) => str.split(',')[index].split(":")[1].split("}")[0]
+      const sid = getField(user, 0)
+      const username = getField(user, 1)
+      const isSocialUser = getField(user, 2) === 'yes'
+      const register_completed = getField(user, 3) === 'yes'
 
-      this.setState(prev => ({ users: {
-        ...prev.users,
-        [sid]: {
-          user: username,
+      this.setState(prev => (
+        { 
+          ...prev,
+          users: {
+            ...prev.users,
+            [sid]: {
+              userId: sid,
+              user: username,
+              social: isSocialUser,
+              register_completed,
+            }
+          },
         }
-      }}))
+      ))
     }
+
+    /* load first eight products */
+    axios.get('/products/limit/8', { timeout: 20000 })
+    .then(response => {
+      const { products } = response.data
+      
+      this.setState(prev => ({
+        ...prev,
+        products: products.reduce((obj, v) => {
+          obj[v._id] = v
+          return obj
+        }, {})
+      }))
+    })
   }
   render() {
-    const { users } = this.state
-    const isLoggedIn = !!Object.keys(users || {}).length
+    const { users, products } = this.state
+    const isLoggedIn = !!Object.keys(users || {}).length && 
+    (Object.values(users || {})[0].register_completed || false)
+    const user = Object.values(users || {})[0] || { social: false }
+
     return (
       <ThemeProvider theme={styledTheme}>
         <MuiThemeProvider theme={theme}>
@@ -55,8 +86,9 @@ class App extends Component {
               <Header isLoggedIn={isLoggedIn} />
               <Switch>
                 <Route path="/product/:id" component={Product} />
-                <Route exact path="/(signin|signup)" render={() => RedirectIf(isLoggedIn)} />
-                <Route path="/:mode?" component={Home} />
+                <Route exact path="/welcome" component={Welcome} />
+                <Route exact path="/(signin|signup)" render={() => RedirectIf(isLoggedIn, user)} />
+                <Route path="/:mode?" render={() => <Home products={products || {}} />} />
                 <Route render={() => <p>not found</p>} />
               </Switch>
               <Footer />

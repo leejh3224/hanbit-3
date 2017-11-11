@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {
-  Link,
-  withRouter
-} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 import Toolbar from 'material-ui/Toolbar'
 import IconButton from 'material-ui/IconButton'
@@ -16,6 +13,7 @@ import AppBar from 'shared/AppBar'
 import Typography from 'shared/Typography'
 import FullScreenDialog from 'shared/FullScreenDialog'
 import SearchInput from 'shared/SearchInput'
+import Link from 'shared/Link'
 
 const SearchButton = ({
   onClick,
@@ -61,7 +59,7 @@ class Header extends Component {
     const { open } = this.state
     const { handleClickOpen, handleRequestClose } = this
     return (
-      <AppBar>
+      <AppBar data-transparent>
         <Toolbar disableGutters>
           <IconButton aria-label="Menu">
             <MenuIcon />
@@ -71,7 +69,7 @@ class Header extends Component {
             data-bold
             style={{ marginLeft: 12, marginTop: 3 }}
           >
-            <Link to="/" style={{ textDecoration: 'none', color: '#000' }}>
+            <Link to="/">
               Hanbit
             </Link>
           </Typography>
@@ -89,7 +87,7 @@ class Header extends Component {
           />
           {
             isLoggedIn ? (
-              <a href="http://127.0.0.1:8080/user/logout">
+              <a href="http://127.0.0.1:8080/users/logout">
                 <IconButton aria-label="LockOpen">
                   <LockOpenIcon />
                 </IconButton>

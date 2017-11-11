@@ -4,8 +4,8 @@ import styled from 'styled-components'
 
 import TextField from 'material-ui/TextField'
 import ErrorMessage from 'shared/ErrorMessage'
-import NumberFormat from 'react-number-format'
 import Button from 'material-ui/Button'
+import NumberFormat from 'react-number-format'
 
 import postCodeOptions from 'lib/postCodeOptions'
 
@@ -64,9 +64,8 @@ const Step3 = ({
         onBlur={handleBlur}
         value={values.phone}
         customInput={TextField}
-        placeholder="(010) XXXX-XXXX"
-        format="(010) ####-####"
-        mask="__"
+        placeholder="010 XXXX XXXX"
+        format={"### #### ####"}
       />
       {
         hasError('phone') &&

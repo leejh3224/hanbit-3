@@ -10,13 +10,13 @@ const Wrapper = styled.div`
   display: inline-block;
   width: ${({ fullWidth, width }) => fullWidth ? '100%' : `${width}px`};
   @media(max-width: 30em) {
-    width: ${({ fullWidth, width }) => fullWidth ? '100%' : `${width * 0.65}px`};
+    width: ${({ fullWidth, width }) => fullWidth ? '100%' : `${width * 0.7}px`};
   }
 
   .search {
     width: ${({ width }) => width}px;
     @media(max-width: 30em) {
-      width: ${({ width }) => width * 0.65}px;
+      width: ${({ width }) => width * 0.7}px;
     }
     input {
       text-indent: 25px;

@@ -16,7 +16,7 @@ const LazyLoader = ({
       debounce={300}
       once
     >
-      <FadeIn>
+      <FadeIn height={height} minHeight={minHeight}>
       { children }
       </FadeIn>
     </LazyLoad>

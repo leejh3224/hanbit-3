@@ -4,12 +4,15 @@ import { withRouter } from 'react-router-dom'
 
 import Template from '../Template'
 import Hero from './Hero'
-
 import ProductList from './ProductList'
+
+import config from 'config'
 
 const Home = ({
   match,
+  products,
 }) => {
+  const { static_url } = config
   const { mode } = match.params
   if (mode && mode !== 'search') {
     return <p>NOT FOUND</p>
@@ -17,10 +20,11 @@ const Home = ({
   return (
     <Template>
       <Hero
-        src={require('static/back.jpg')}
+        src={`${static_url}/etc/back.jpg`}
         height={'40%'}
+        minHeight={300}
       />
-      <ProductList />
+      <ProductList products={products} />
     </Template>
   )
 }

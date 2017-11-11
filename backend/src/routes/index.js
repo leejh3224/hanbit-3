@@ -1,10 +1,9 @@
-import userRouter from './user'
-import { Router } from 'express'
+import express from 'express'
 import multer from 'multer'
 import mime from 'mime-types'
 import crypto from 'crypto'
 
-const routes = Router()
+const routes = express.Router()
 
 const storage = multer.diskStorage({
   destination: '../frontend/src/static/',
@@ -20,7 +19,5 @@ const upload = multer({ storage })
 routes.post('/', upload.single('img'), (req, res) => {
   res.send('success')
 })
-
-routes.use('/user', userRouter)
 
 export default routes

@@ -3,18 +3,18 @@ import mongoose from 'mongoose'
 const { Schema } = mongoose
 
 const Review = new Schema({
-  displayName: {
+  author: {
     type: String,
     required: true,
   },
-  body: {
+  review_body: {
     type: String,
     required: true,
   },
-  score: {
+  review_rating: {
     type: Number,
     required: true,
   },
 }, { timestamps: true })
 
-export default mongoose.model('Review', Review)
+export default Review

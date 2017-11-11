@@ -5,6 +5,7 @@ const animation = keyframes`${fadeIn}`
 
 const FadeIn = styled.div`
   animation: 0.5s ${animation};
+  width: 100%;
   height: 100%;
 `
 

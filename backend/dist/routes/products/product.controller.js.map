@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/routes/products/product.controller.js"],"names":["exports","create","req","res"],"mappings":";;AAAA;;;;;;AAEAA,QAAQC,MAAR,GAAiB,CAACC,GAAD,EAAMC,GAAN,KAAc,CAE9B,CAFD","file":"product.controller.js","sourcesContent":["import Product from '../../models/Product'\n\nexports.create = (req, res) => {\n  \n}"]}

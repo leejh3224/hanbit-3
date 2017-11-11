@@ -55,7 +55,7 @@ const User = new Schema({
 }, { timestamps: true })
 
 User.methods.generateHash = function(password) {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(15))
 }
 
 User.methods.validatePassword = function(password) {

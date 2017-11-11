@@ -1,18 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {
-  NavLink,
-  withRouter,
-} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 
 import Template from '../Template'
 import Image from 'shared/Image'
+import Link from 'shared/Link'
+
+/* forms */
 import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
+
+import config from 'config'
 
 const StyledCard = styled(Card)`
   display: flex;
@@ -62,12 +64,14 @@ const NavWrapper = styled.div`
 const Login = ({
   match,
   history,
+  user,
 }) => {
 
   /*
    * login or register 
    * @array: ['login' or 'login']
    * */
+  const { static_url } = config
   const mode = match.params[0]
   const isLoginView = mode === 'signin'
   const reverse = (mode) => {
@@ -82,7 +86,7 @@ const Login = ({
         <StyledCard>
           <div className="card-image">
             <Image 
-              src={require('static/gg.jpg')}
+              src={`${static_url}/etc/gg.jpg`}
               height={'100%'}
             />
           </div>
@@ -94,6 +98,7 @@ const Login = ({
                 />
               ) : (
                 <RegisterForm
+                  user={user}
                   history={history}
                 />
               )
@@ -101,22 +106,19 @@ const Login = ({
           </StyledCardContent>
         </StyledCard>
         <NavWrapper>
-          <NavLink
-            to={`/${reverse(mode)}`}
-            activeStyle={{ color: '#000' }}
-          >
+          <Link to={`/${reverse(mode)}`}>
             <Button>
             {
               isLoginView ? 
-              '처음이신가요?' : '로그인하기'
+              '가입하기' : '로그인하기'
             }
             </Button>
-          </NavLink>
+          </Link>
           {
             isLoginView && (
-            <NavLink to="/" activeStyle={{ color: '#000' }}>
+            <Link to="/">
               <Button>비밀번호를 잊어버리셨나요?</Button>
-            </NavLink>
+            </Link>
             )
           }
         </NavWrapper>

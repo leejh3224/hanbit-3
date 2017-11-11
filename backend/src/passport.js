@@ -66,11 +66,14 @@ module.exports = (app, passport) => {
         .then(user => {
           if (!user) {
             done(null, false)
-          }
-          if (!user.validatePassword(password)) {
+          } else if (!user.validatePassword(password)) {
             done(null, false)
+          } else {
+
+            // else로 감싸지 않으면 done 함수가 두 번 불려지고
+            // can't set headers after they're set 에러를 일으킴
+            done(null, user)
           }
-          done(null, user)
         })
         .catch(e => done(e, false))
   }))
@@ -91,8 +94,9 @@ module.exports = (app, passport) => {
             return newUser.save()
                    .then(user => done(null, user))
                    .catch(e => done(e, false))
+          } else {
+            done(null, user)
           }
-          done(null, user)
         })
         .catch(e => done(e, false))
   }))
@@ -113,8 +117,9 @@ module.exports = (app, passport) => {
             return newUser.save()
                    .then(user => done(null, user))
                    .catch(e => done(e, false))
+          } else {
+            done(null, user)
           }
-          done(null, user)
         })
         .catch(e => done(e, false))
   }))

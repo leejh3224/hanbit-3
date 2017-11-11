@@ -9,6 +9,7 @@ import yup from 'yup'
 
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
+import { CircularProgress } from 'material-ui/Progress'
 
 import Typography from 'shared/Typography'
 
@@ -17,6 +18,7 @@ import SocialLoginButtonGroup from './SocialLoginButtonGroup'
 const StyledForm = styled.form`
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,6 +50,7 @@ const LoginForm = ({
       <Typography
         type="subheading"
         data-bold
+        data-padding-top-m={8}
       >로그인</Typography>
       <TextField
         label="이메일"
@@ -78,7 +81,14 @@ const LoginForm = ({
         style={{ minWidth: 300, marginTop: 24 }}
         disabled={isSubmitting}
       >
-        계속하기
+        { 
+          isSubmitting ? 
+            <CircularProgress
+              color="primary"
+              size={20}
+              thickness={7.2}
+            /> : '계속하기'
+        }
       </Button>
       <SocialLoginButtonGroup />
     </StyledForm>
@@ -109,14 +119,14 @@ export default withFormik({
     //const _csrf = document.cookie.split(';')[1].split('=')[1]
 
     alert(`email: ${email}\n password: ${password}`)
-    axios.post('/user/signin', 
+    axios.post('/users/signin', 
     { email, password, //csrf 
     },
     { 
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
-      timeout: 5000,
+      timeout: 20000,
     }).then((response) => {
       setSubmitting(false)
       const success = response.status === 200

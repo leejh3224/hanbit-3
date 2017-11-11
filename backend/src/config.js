@@ -19,12 +19,12 @@ const config = {
     naver: {
       clientID: process.env.NAVER_CLIENT_ID,
       clientSecret: process.env.NAVER_CLIENT_SECRET,
-      callbackURL: '/user/naver/callback',
+      callbackURL: '/users/naver/callback',
     },
     facebook: {
       clientID: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-      callbackURL: '/user/facebook/callback',
+      callbackURL: '/users/facebook/callback',
     },
   },
   development: {}, 

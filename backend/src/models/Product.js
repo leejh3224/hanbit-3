@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import Review from './Review'
 
-const { Schema } = 'mongoose'
+const { Schema } = mongoose
 
 const Product = new Schema({
   name: {
@@ -12,31 +12,64 @@ const Product = new Schema({
     type: String,
     required: true,
   },
-  price: {
+  // Image path
+  image: [{
+    type: String,
+    required: true,
+  }],
+  description: {
+    type: String,
+    required: true,
+  },
+  brand: {
+    type: String,
+    required: true,
+  },
+  stock_keeping_unit: {
     type: Number,
     required: true,
   },
-  thumnail: {
-    name: String,
-    path: String,
-    required: true,
+  aggregate_rating: {
+    rating_value: Number,
+    rating_count: Number,
   },
-  pictures: [{ name: String, path: String }],
-  information: {
-    type: String,
-    required: true,
+  review: [Review],
+  low_price: {
+    type: Number,
   },
-  reviews: [Review],
-  related: {
-    name: { type: String, required: true },
-    price: { type: Number, required: true },
-    thumnail: { name: String, path: String, required: true },
+  high_price: {
+    type: Number,
   },
-  status: {
-    type: String,
-    enum: ['NEW', 'HOT', 'SALE', null],
-    default: null,
-  }
+  promotions: {
+    name: {
+      type: String,
+    },
+    available_until: {
+      type: String,
+    },
+  },
+  related: [{
+    name: { 
+      type: String, 
+    },
+    low_price: {
+      type: Number,
+    },
+    high_price: {
+      type: Number,
+    },
+    promotions: {
+      name: {
+        type: String,
+      },
+      available_until: {
+        type: String,
+      },
+    },
+    image: [{
+      type: String,
+    }],
+  }],
 }, { timestamps: true })
 
 export default mongoose.model('Product', Product)

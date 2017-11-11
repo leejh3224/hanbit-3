@@ -4,10 +4,12 @@ import styled from 'styled-components'
 
 import Template from '../Template'
 
-const Product = () => {
+const Product = ({
+  match,
+}) => {
   return (
     <Template>
-      product
+      {match.params.id}
     </Template>
   )
 }

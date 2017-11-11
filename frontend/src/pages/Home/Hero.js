@@ -27,17 +27,20 @@ const Wrapper = styled.div`
 const Hero = ({
   src,
   height,
+  minHeight,
 }) => {
   return (
     <Image
       src={src}
       height={height}
-      minHeight={250}
+      minHeight={minHeight}
     >
       <Wrapper>
-        <Typography data-bold>You will feel better.</Typography>
+        <Typography
+          type="subheading"
+          data-bold>You will feel better.</Typography>
         <SearchInput
-          width={400}
+          width={350}
         />
       </Wrapper>
     </Image>
