@@ -29,6 +29,9 @@ const SearchButton = ({
 )
 
 class Header extends Component {
+  static propTypes = {
+    isLoggedIn: PropTypes.bool.isRequired,
+  }
   constructor(props) {
     super(props)
     
@@ -59,7 +62,7 @@ class Header extends Component {
     const { open } = this.state
     const { handleClickOpen, handleRequestClose } = this
     return (
-      <AppBar data-transparent>
+      <AppBar data-transparent style={{ boxShadow: 'none' }}>
         <Toolbar disableGutters>
           <IconButton aria-label="Menu">
             <MenuIcon />

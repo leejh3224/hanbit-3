@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -30,38 +30,54 @@ const Wrapper = styled.div`
   }
 `
 
-class ProductList extends Component {
-  static propTypes = {}
-  state = {
-    value: 0
-  }
-  handleChange = (e, value) => {
-    this.setState({ value })
-  }
-  render() {
-    const { value } = this.state
-    const { products } = this.props
-    const { handleChange } = this
+const ListWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+`
 
-    return (
-      <Wrapper>
-        <Typography
-            type="subheading"
-            data-bold
-        >What's New</Typography>
-        <div className="decorator" />
-        <TabBar
-          value={value}
-          handleChange={handleChange}
-        >
-          { 
-            Object.values(products)
-            .map(product => <ProductCard key={product._id} product={product} />) 
-          }
-        </TabBar>
-      </Wrapper>
-    )
+const List = ({
+  products,
+}) => (
+  <ListWrapper>
+  {
+    Object.values(products)
+    .map(product => <ProductCard key={product._id} product={product} />) 
   }
+  </ListWrapper>
+)
+
+const ProductList = (
+  props,
+) => {
+  return (
+    <Wrapper>
+      <Typography
+        type="subheading"
+        data-bold
+      >What's New</Typography>
+      <div className="decorator" />
+      <TabBar
+        names={{
+          "이 주의 특가": { withBadge: false },
+          "가을 신상": { withBadge: false },
+          "핫한 신상": { withBadge: false },
+          "신상신상": { withBadge: false },
+          "가을 가을": { withBadge: false },
+          "핫해핫해": { withBadge: false },
+          "show a": { withBadge: false },
+        }}
+      >
+        <List {...props} />
+        <List {...props} />
+        <List {...props} />
+        <List {...props} />
+        <List {...props} />
+        <List {...props} />
+        <p>a</p>
+      </TabBar>
+    </Wrapper>
+  )
 }
 
 ProductList.propTypes = {

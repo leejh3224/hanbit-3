@@ -134,6 +134,9 @@ export default withFormik({
 
       if (success) {
         history.push('/', { isLoggedIn: true })
+
+        // 새로고침해서 App의 componentWillMount를 trigger
+        window.location.reload()
       } else {
         alert('로그인 실패')
       }

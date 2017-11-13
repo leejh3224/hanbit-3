@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import Typography from 'shared/Typography'
 
@@ -226,10 +225,6 @@ const TermsOfService = () => {
       ② "쇼핑몰"과 이용자간에 제기된 전자거래 소송에는 한국법을 적용합니다. <br />
     </Typography>
   )
-}
-
-TermsOfService.propTypes = {
-
 }
 
 export default TermsOfService

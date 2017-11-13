@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import Button from 'material-ui/Button'
@@ -41,10 +40,6 @@ const SocialLoginButtonGroup = () => {
       </ButtonWrapper>
     </Wrapper>
   )
-}
-
-SocialLoginButtonGroup.propTypes = {
-
 }
 
 export default SocialLoginButtonGroup

@@ -4,13 +4,14 @@ import styled from 'styled-components'
 
 import Card, { CardActions, CardContent } from 'material-ui/Card'
 import FavoriteIcon from 'material-ui-icons/Favorite'
+import StarIcon from 'material-ui-icons/Star'
 import Button from 'material-ui/Button'
 
 import Image from 'shared/Image'
 import Typography from 'shared/Typography'
 import Link from 'shared/Link'
 
-const StyledCard = styled(Card)`
+const StyledLink = styled(Link)`
   && {
     flex: 1;
     min-width: 280px;
@@ -33,41 +34,55 @@ const ProductCard = ({
     high_price,
     low_price,
     promotions,
+    aggregate_rating,
   } = product
 
   return (
-    <Link to={`/product/${_id}`}>
-      <StyledCard>
+    <StyledLink to={`/product/${_id}`}>
+      <Card>
         <Image 
           src={image[0]}
           height={220}
           lazy
         />
         <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '16px 16px 0 16px' }}>
-          <Typography
-            type="headline"
-            data-bold
-            style={{ color: '#000' }}
-          >
-            {name}
-          </Typography>
-          <Typography
-            type="display3"
-            data-bold
-            style={{ color: '#000' }}
-          >
-            {promotions[0].name}
-          </Typography>
+          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <Typography
+                type="headline"
+                data-bold
+                style={{ color: '#000' }}
+              >
+                {name}
+              </Typography>
+              <Typography
+                type="display3"
+                data-bold
+                style={{ color: '#000' }}
+              >
+                {promotions[0].name}
+              </Typography>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <StarIcon style={{ marginBottom: 7, marginRight: 5 }}/>
+              <Typography
+                type="subheading"
+                data-bold
+              >
+                {aggregate_rating.rating_value}
+              </Typography>
+            </div>
+          </div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Typography
-              type="display3"
+              type="display2"
               data-bold
               style={{ margin: '8px 8px 0 0', textDecoration: 'line-through' }}
             >
               {new Intl.NumberFormat().format(low_price)}원
             </Typography>
             <Typography
-              type="display3"
+              type="display2"
               data-bold
               style={{ color: '#000', margin: '8px 0 0 0' }}
             >
@@ -83,8 +98,8 @@ const ProductCard = ({
             장바구니
           </Button>
         </CardActions>
-      </StyledCard>
-    </Link>
+      </Card>
+    </StyledLink>
   )
 }
 

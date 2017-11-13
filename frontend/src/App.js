@@ -4,7 +4,6 @@ import {
   Switch,
   Route,
 } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import cookie from 'cookie'
 import axios from 'axios'
 
@@ -30,11 +29,11 @@ import RedirectIf from 'lib/RedirectIf'
 class App extends Component {
   state = {
     users: null,
-    products: null,
+    products: null
   }
   componentWillMount() {
     const { user } = cookie.parse(document.cookie)
-
+    
     if (user) {
       const getField = (str, index) => str.split(',')[index].split(":")[1].split("}")[0]
       const sid = getField(user, 0)
@@ -85,10 +84,10 @@ class App extends Component {
             <div>
               <Header isLoggedIn={isLoggedIn} />
               <Switch>
-                <Route path="/product/:id" component={Product} />
+                <Route path="/product/:id" render={props => <Product products={products} {...props} />} />
                 <Route exact path="/welcome" component={Welcome} />
                 <Route exact path="/(signin|signup)" render={() => RedirectIf(isLoggedIn, user)} />
-                <Route path="/:mode?" render={() => <Home products={products || {}} />} />
+                <Route path="/:mode?" render={props => <Home products={products || {}} {...props} />} />
                 <Route render={() => <p>not found</p>} />
               </Switch>
               <Footer />

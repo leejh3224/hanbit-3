@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import Typography from 'shared/Typography'
 
@@ -66,10 +65,6 @@ const PrivacyPolicy = () => {
       <br/>
     </Typography>
   )
-}
-
-PrivacyPolicy.propTypes = {
-
 }
 
 export default PrivacyPolicy

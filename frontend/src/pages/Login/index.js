@@ -128,7 +128,9 @@ const Login = ({
 }
 
 Login.propTypes = {
-
+  match: PropTypes.object,
+  history: PropTypes.object,
+  user: PropTypes.object,
 }
 
 export default withRouter(Login)

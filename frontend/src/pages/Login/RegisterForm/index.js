@@ -273,6 +273,9 @@ export default enhance(withFormik({
 
         if (success) {
           history.push('/welcome', { isLoggedIn: true, register_completed: true })
+
+          // 새로고침해서 App의 componentWillMount를 trigger
+          window.location.reload()
         } else {
           alert('가입 실패')
         }
@@ -306,6 +309,9 @@ export default enhance(withFormik({
 
         if (success) {
           history.push('/welcome', { isLoggedIn: true, register_completed: true  })
+
+          // 새로고침해서 App의 componentWillMount를 trigger
+          window.location.reload()
         } else {
           alert('가입 실패')
         }
