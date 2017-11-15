@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import LazyLoad from 'react-lazyload'
 
 import Placeholder from './Placeholder'
-import FadeIn from './animation/FadeIn'
+import { FadeIn } from './animation'
 
 const LazyLoader = ({
   height,

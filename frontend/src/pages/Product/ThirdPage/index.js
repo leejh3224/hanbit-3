@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import List, { ListItem } from 'material-ui/List'
 import WbCloudyIcon from 'material-ui-icons/WbCloudy'
 
-import Typography from 'shared/Typography'
 import RelatedProduct from './RelatedProduct'
 
 const FullList = styled(List)`

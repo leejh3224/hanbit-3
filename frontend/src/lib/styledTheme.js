@@ -4,7 +4,7 @@ const styledTheme = {
     primaryHover: '#fb8367',
     whiteHover: '#e5e5e5',
     background: '#f4f4f4',
-    grey: '#cecece',
+    grey: '#d5d6d2',
     success: 'c7db00',
     error: '#fe423f',
   },

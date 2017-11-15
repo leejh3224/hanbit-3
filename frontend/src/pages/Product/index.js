@@ -24,6 +24,7 @@ const Product = ({
   const {
     review,
     related,
+    options,
   } = matchedProduct
 
   return (
@@ -41,7 +42,7 @@ const Product = ({
           <ThirdPage related={related} />
         </TabBar>
       </Wrapper>
-      <PageFooter />
+      <PageFooter options={options} />
     </Template>
   )
 }

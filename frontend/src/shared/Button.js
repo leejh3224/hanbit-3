@@ -40,5 +40,10 @@ export const RoundButton = PrimaryButton.extend`
     min-height: ${({ diameter }) => diameter}px;
     border-radius: 100%;
     padding: 0;
+    background-color: ${({ theme, color }) => theme.color[color]};
+
+    &:hover {
+      background-color: ${({ theme, color }) => theme.color[color]};
+    }
   }
 `

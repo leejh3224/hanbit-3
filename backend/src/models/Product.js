@@ -29,6 +29,14 @@ const Product = new Schema({
     type: Number,
     required: true,
   },
+  options: [{
+    name: {
+      type: String,
+    },
+    selects: [{
+      type: String,
+    }],
+  }],
   aggregate_rating: {
     rating_value: Number,
     rating_count: Number,
