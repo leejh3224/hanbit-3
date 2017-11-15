@@ -1,4 +1,5 @@
 import Product from '../../models/Product'
+import Review from '../../models/Review'
 
 exports.create = (req, res) => {
   const {
@@ -8,9 +9,11 @@ exports.create = (req, res) => {
     description,
     brand,
     stock_keeping_unit,
-    aggregateRating,
+    aggregate_rating,
     review,
-    offers,
+    low_price,
+    high_price,
+    promotions,
     related,
   } = req.body
   return new Product({
@@ -20,9 +23,11 @@ exports.create = (req, res) => {
     description,
     brand,
     stock_keeping_unit,
-    aggregateRating,
+    aggregate_rating,
     review,
-    offers,
+    low_price,
+    high_price,
+    promotions,
     related,
   }).save().then(product => res.json({ product }))
   .catch(error => res.json({ error }))
@@ -55,9 +60,11 @@ exports.update = (req, res) => {
     description,
     brand,
     stock_keeping_unit,
-    aggregateRating,
+    aggregate_rating,
     review,
-    offers,
+    low_price,
+    high_price,
+    promotions,
     related,
   } = req.body
 
@@ -69,20 +76,25 @@ exports.update = (req, res) => {
     description,
     brand,
     stock_keeping_unit,
-    aggregateRating,
+    aggregate_rating,
     review,
-    offers,
+    low_price,
+    high_price,
+    promotions,
     related,
-  }).then(() => {
-    res.json({ updated: true })
-  }).catch(error => res.json({ error }))
+  }).then(() => res.json({ updated: true }))
+  .catch(error => res.json({ error }))
 }
 
 exports.delete = (req, res) => {
   const { productId } = req.params
 
-  return Product.remove({ _id: productId })
-  .then(() => {
-    res.json({ removed: true })
-  }).catch(error => res.json({ error }))
+  // embeded review 도큐먼트와 Review 도큐먼트 모두를 지움
+  return Product.findOneAndRemove({ _id: productId })
+  .then(product => {
+    const { review } = product
+    return Review.findOneAndRemove({ _id: review._id })
+    .then(() => res.json({ removed: true }))
+    .catch(error => res.json({ error }))
+  })
 }

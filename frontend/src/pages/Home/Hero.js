@@ -9,7 +9,7 @@ import SearchInput from 'shared/SearchInput'
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: inherit;
   background: rgba(255, 255, 255, 0.5);
   display: flex;
   flex-direction: column;
@@ -27,18 +27,17 @@ const Wrapper = styled.div`
 const Hero = ({
   src,
   height,
-  minHeight,
 }) => {
   return (
     <Image
       src={src}
       height={height}
-      minHeight={minHeight}
     >
       <Wrapper>
         <Typography
           type="subheading"
-          data-bold>You will feel better.</Typography>
+          bold="true"
+        >You will feel better.</Typography>
         <SearchInput
           width={350}
         />

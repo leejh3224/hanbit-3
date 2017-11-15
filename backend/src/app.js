@@ -5,14 +5,11 @@ import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import passport from 'passport'
-import path from 'path'
 
-import userRouter from './routes/users'
-import productRouter from './routes/products'
+import routes from './routes'
 import connectDB from './models'
 import passportConfig from './passport'
 import sess from './sess'
-import config from './config'
 
 const app = express()
 app.use(helmet())
@@ -30,19 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 passportConfig(app, passport)
 
 // Routes
-app.use('/users', userRouter)
-app.use('/products', productRouter)
-
-app.use((req, res, next) => {
-  if (req.url.includes('/static')) {
-    req.url += '/view'
-  }
-  next()
-})
-app.use('/view', express.static(path.join(__dirname, '../../frontend/build')))
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../frontend/build/index.html'))
-})
+app.use('/', routes)
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {

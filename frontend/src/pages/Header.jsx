@@ -69,7 +69,6 @@ class Header extends Component {
           </IconButton>
           <Typography 
             type="headline"
-            data-bold
             style={{ marginLeft: 12, marginTop: 3 }}
           >
             <Link to="/">

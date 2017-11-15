@@ -21,8 +21,7 @@ const Home = ({
     <Template>
       <Hero
         src={`${static_url}/etc/back.jpg`}
-        height={'40%'}
-        minHeight={300}
+        height={260}
       />
       <ProductList products={products} />
     </Template>

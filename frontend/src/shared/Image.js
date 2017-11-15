@@ -6,7 +6,7 @@ import LazyLoader from 'lib/LazyLoader'
 
 const StyledImage = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: inherit;
   background-image: ${({ src }) => `url(${ src })`};
   background-size: cover;
   background-position: center;
@@ -15,7 +15,6 @@ const StyledImage = styled.div`
 const Image = ({
   src,
   height,
-  minHeight,
   lazy,
   children,
 }) => {
@@ -24,28 +23,19 @@ const Image = ({
     // string type: x%, number type: pixel
     // min-height: 랜드스케이프 모드에서 최소 높이 보장
     width: '100%',
-    height: typeof height === 'string' ? height : `${height}px`,
-    minHeight: `${minHeight}px`,
+    minHeight: typeof height === 'string' ? height : `${height}px`,
   }
   return (
-    <div
-      style={ImageStyle}
-    >
+    <div style={ImageStyle}>
       {
         lazy ? (
           <LazyLoader height={height}>
-            <StyledImage
-              height={height}
-              src={src}
-            >
+            <StyledImage src={src}>
               {children}
             </StyledImage>
           </LazyLoader>
         ) : (
-          <StyledImage
-            height={height}
-            src={src}
-          >
+          <StyledImage src={src}>
             {children}
           </StyledImage>
         )
@@ -60,7 +50,6 @@ Image.propTypes = {
     PropTypes.string.isRequired,
     PropTypes.number.isRequired,
   ]),
-  minHeight: PropTypes.number,
   lazy: PropTypes.bool,
   children: PropTypes.element,
 }

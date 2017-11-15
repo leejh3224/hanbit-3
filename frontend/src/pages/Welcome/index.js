@@ -12,18 +12,18 @@ const Welcome = () => {
   return (
     <Template>
       <Image 
-        height={'100%'}
+        height={'100vh'}
         src={require('static/welcome.jpeg')}
         lazy
       >
-        <div style={{ display: 'flex', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', background: 'RGBA(255, 255, 255, 0.5)', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', width: '100%', minHeight: 'inherit', justifyContent: 'center', alignItems: 'center', background: 'RGBA(255, 255, 255, 0.5)', flexDirection: 'column' }}>
           <Typography
             type="title"
-            bold
+            bold="true"
           >Welcome!</Typography>
           <Typography
             type="subheading"
-            bold
+            bold="true"d
           >환영합니다.</Typography>
           <Link to={{
             pathname: "/",

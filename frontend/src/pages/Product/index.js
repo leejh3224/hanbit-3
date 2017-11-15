@@ -7,6 +7,7 @@ import TabBar from 'shared/TabBar'
 import FirstPage from './FirstPage'
 import SecondPage from './SecondPage'
 import ThirdPage from './ThirdPage'
+import PageFooter from './PageFooter'
 
 const Wrapper = styled.div`
   padding-top: 64px;
@@ -40,6 +41,7 @@ const Product = ({
           <ThirdPage related={related} />
         </TabBar>
       </Wrapper>
+      <PageFooter />
     </Template>
   )
 }

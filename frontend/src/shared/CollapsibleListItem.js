@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { compose, withState } from 'recompose'
 
 import { ListItem, ListItemIcon } from 'material-ui/List'
 import Collapse from 'material-ui/transitions/Collapse'
@@ -10,16 +9,14 @@ import ExpandMore from 'material-ui-icons/ExpandMore'
 
 import Typography from 'shared/Typography'
 
+import { visibilityEnhancer } from 'lib/enhancer'
+
 const Wrapper = styled.div``
 
-const enhance = compose(
-  withState('open', 'setItemVisibility', false),
-)
-
-const CollapsibleListItem = enhance(({
+const CollapsibleListItem = ({
   labels,
-  open,
-  setItemVisibility,
+  isVisible,
+  setVisibility,
 }) => {
   const [parent, ...rest] = Object.keys(labels)
 
@@ -28,7 +25,7 @@ const CollapsibleListItem = enhance(({
       <ListItem
         style={{ background: '#fff' }}
         onClick={
-          open ? () => setItemVisibility(false) : () => setItemVisibility(true)
+          isVisible ? () => setVisibility(false) : () => setVisibility(true)
         }
         divider
       >
@@ -45,9 +42,9 @@ const CollapsibleListItem = enhance(({
         >
           {parent}
         </Typography>
-        {open ? <ExpandLess /> : <ExpandMore />}
+        {isVisible ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
-      <Collapse in={open} transitionDuration="auto" unmountOnExit>
+      <Collapse in={isVisible} transitionDuration="auto" unmountOnExit>
         {
           rest.map((label, i) => (
             <ListItem key={i} style={{ background: '#fff', paddingLeft: 16 }}>
@@ -70,10 +67,13 @@ const CollapsibleListItem = enhance(({
       </Collapse>
     </Wrapper>
   )
-})
+}
 
 CollapsibleListItem.propTypes = {
 
 }
 
-export default CollapsibleListItem
+export default visibilityEnhancer(
+  // initial state
+  false,
+)(CollapsibleListItem)

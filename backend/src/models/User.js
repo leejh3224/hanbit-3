@@ -24,6 +24,7 @@ const User = new Schema({
   postcode: String,
   address1: String,
   address2: String,
+  review: [String],
   purchase_history: {
     purchased_at: {
       type: Date,
@@ -32,25 +33,18 @@ const User = new Schema({
     name: String,
     amount: Number,
     price: Number,
-    payment_option: String,
     status: String,
   },
   cart: {
     name: String,
     amount: Number,
     price: Number,
-    thumnail: {
-      name: String,
-      path: String,
-    },
+    image: String,
   },
   favorite: {
     name: String,
     price: Number,
-    thumnail: {
-      name: String,
-      path: String,
-    },
+    image: String,
   },
 }, { timestamps: true })
 

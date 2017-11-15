@@ -54,7 +54,7 @@ const ProductList = (
     <Wrapper>
       <Typography
         type="subheading"
-        data-bold
+        bold="true"
       >What's New</Typography>
       <div className="decorator" />
       <TabBar

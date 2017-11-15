@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { compose, withState, withHandlers } from 'recompose'
 
 import SwipeableViews from 'react-swipeable-views'
 import MobileStepper from 'material-ui/MobileStepper'
@@ -10,6 +9,8 @@ import KeyboardArrowLeft from 'material-ui-icons/KeyboardArrowLeft'
 import KeyboardArrowRight from 'material-ui-icons/KeyboardArrowRight'
 
 import Image from 'shared/Image'
+
+import { PaginationEnhancer } from 'lib/enhancer'
 
 const Wrapper = styled.div`
   position: relative;
@@ -39,36 +40,27 @@ const StyledStepper = styled(MobileStepper)`
       height: 12px;
       margin: 0 2px;
       border-radius: 50%;
-      background-color: #fb6542;
+      background-color: ${({ theme }) => theme.color.primary};
     }
   }
 `
 
-const enhance = compose(
-  withState('index', 'setIndex', 0),
-  withHandlers({
-    onIncrease: ({ image, children, index, setIndex }) => () => index < (image || children).length - 1 && setIndex(index + 1),
-    onDecrease: ({ index, setIndex }) => () => index > 0 && setIndex(index - 1),
-  })
-)
-
-const Carousel = enhance(({
+const Carousel = ({
   images,
   height,
-  index,
-  setIndex,
-  onIncrease,
-  onDecrease,
   children,
-  stepper,
+  page,
+  setPage,
+  nextPage,
+  prevPage,
 }) => {
   const steps = (images || children).length
   return (
     <Wrapper>
       <SwipeableViews
         enableMouseEvents
-        index={index}
-        onChangeIndex={index => setIndex(index)}
+        index={page}
+        onChangeIndex={page => setPage(page)}
       >
         {
           images ? (
@@ -87,19 +79,19 @@ const Carousel = enhance(({
         type="dots"
         steps={steps}
         position="static"
-        activeStep={index}
+        activeStep={page}
         nextButton={
           <Button
-            disabled={index === steps - 1}
-            onClick={onIncrease}
+            disabled={page === steps - 1}
+            onClick={nextPage}
           >
             <KeyboardArrowRight />
           </Button>
         }
         backButton={
           <Button
-            disabled={index === 0}
-            onClick={onDecrease}
+            disabled={page === 0}
+            onClick={prevPage}
           >
             <KeyboardArrowLeft />
           </Button>
@@ -107,11 +99,19 @@ const Carousel = enhance(({
       />
     </Wrapper>
   )
-})
+}
 
 Carousel.propTypes = {
   image: PropTypes.arrayOf(PropTypes.string),
   height: PropTypes.number,
 }
 
-export default Carousel
+export default PaginationEnhancer(
+  // @params: initial state, cond1, cond2
+  0,
+  ({ images, children, page, setPage }) => 
+  () => page < (images || children).length - 1 &&
+  setPage(page + 1),
+  ({ page, setPage }) => 
+  () => page > 0 && setPage(page - 1),
+)(Carousel)

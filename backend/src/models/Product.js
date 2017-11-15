@@ -33,7 +33,22 @@ const Product = new Schema({
     rating_value: Number,
     rating_count: Number,
   },
-  review: [Review],
+  review: [{
+    author: {
+      type: String,
+      required: true,
+    },
+    review_body: {
+      type: String,
+      required: true,
+    },
+    review_rating: {
+      type: Number,
+      required: true,
+    },
+    createdAt: Date,
+    updatedAt: Date
+  }],
   low_price: {
     type: Number,
   },
@@ -54,17 +69,6 @@ const Product = new Schema({
     },
     low_price: {
       type: Number,
-    },
-    high_price: {
-      type: Number,
-    },
-    promotions: {
-      name: {
-        type: String,
-      },
-      available_until: {
-        type: String,
-      },
     },
     image: [{
       type: String,
