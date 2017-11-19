@@ -1,22 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
-import { ListItem } from 'material-ui/List'
 import ShoppingCartIcon from 'material-ui-icons/ShoppingCart'
 
+import Wrapper from 'shared/Wrapper'
 import Typography from 'shared/Typography'
 import Image from 'shared/Image'
+import { ListItem } from 'shared/List'
 import { RoundButton } from 'shared/Button'
 
-const StyledListItem = styled(ListItem)`
-  && {
-    display: flex;
-    background-color: #fff;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-`
+import { currency } from 'lib/format'
 
 const RelatedProduct = ({
   related,
@@ -26,30 +19,42 @@ const RelatedProduct = ({
     low_price,
     image,
   } = related
+
   return (
-    <StyledListItem
+    <ListItem 
       divider
-      disableGutters
+      padding={0}
     >
-      <Image src={image[0]} height={160} lazy />
-      <div style={{ minWidth: '50%', padding: 16 }}>
+      <Image 
+        src={image[0]} 
+        height={160} 
+        lazy 
+      />
+      <Wrapper
+        position="relative"
+        padding={2}
+        column="true"
+        justifycontent="center"
+        fullwidth="true"
+        height={160}
+      >
         <Typography
           type="display1"
-          style={{ color: '#000' }}
+          marginbottom={1}
         >{name}</Typography>
         <Typography
           type="display3"
-        >{new Intl.NumberFormat().format(low_price)}원</Typography>
+        >{currency(low_price)}</Typography>
         <RoundButton
-          absolute="true"
           diameter={32}
-          bottom={16}
-          right={16}
+          position="absolute"
+          bottom={2}
+          right={2}
         >
           <ShoppingCartIcon style={{ color: '#fff' }} />
         </RoundButton>
-      </div>
-    </StyledListItem>
+      </Wrapper>
+    </ListItem>
   )
 }
 

@@ -6,12 +6,13 @@ const TermsOfService = () => {
   return (
     <Typography
       type="display3"
+      column="true"
+      height={300}
+      margintop={2}
+      padding={1}
+      border="1px solid grey"
       style={{
-        height: 300,
         overflow: 'auto',
-        margin: '16px 0',
-        padding: 8,
-        border: '1px solid grey',
       }}
     >
       <strong>*서비스 이용약관*</strong><br /><br />

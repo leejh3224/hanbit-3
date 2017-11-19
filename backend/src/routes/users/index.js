@@ -11,7 +11,14 @@ const csrfProtection = csrf({ cookie: true })
 
 const customCallback = (req, res) => {
   const { passport } = req.session
-  const { email } = req.user
+  const { 
+    email, 
+    address1, 
+    address2,
+    postcode,
+    phone,
+    name,  
+  } = req.user
   const { naver, facebook } = req.user.social
   const cookieOptions = {
     maxAge: 1000 * 60 * 60 * 5,
@@ -24,24 +31,34 @@ const customCallback = (req, res) => {
     return facebook
   }
 
+  const user = (isSocial, isCompleted) => `
+    sid:${passport.user};
+    user:${isSocial ? rightProvider().displayName : email};
+    social:${isSocial ? 'yes' : 'no'};
+    completed:${isCompleted ? 'yes' : 'no'};
+    address:${address1 + " " + address2};
+    postcode:${postcode};
+    phone:${phone};
+    name:${name}`
+
   if (naver.displayName || facebook.displayName) {
 
     // 소셜 유저 중 회원가입 나머지 절차를 진행하지 않은 유저
     if (!req.user.name) {
       res.cookie(
         'user', 
-        `{sid:${passport.user}, user:${rightProvider().displayName}, social:yes, completed:no}`, cookieOptions)
+        user(true, false), cookieOptions)
       res.redirect(isDev ? 'http://127.0.0.1:3000/signup': '/')
     } else {
       res.cookie(
         'user', 
-        `{sid:${passport.user}, user:${rightProvider().displayName}, social:yes, completed:yes}`, cookieOptions)
+        user(true, true), cookieOptions)
       res.redirect(isDev ? 'http://127.0.0.1:3000/': '/')
     }
   } else {
     res.cookie(
       'user', 
-      `{sid:'${passport.user}', user:${email}, social:no, completed:yes}`, cookieOptions)
+      user(false, true), cookieOptions)
     res.end()
   }
 }

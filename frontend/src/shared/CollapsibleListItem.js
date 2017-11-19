@@ -1,33 +1,35 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
-import { ListItem, ListItemIcon } from 'material-ui/List'
 import Collapse from 'material-ui/transitions/Collapse'
 import ExpandLess from 'material-ui-icons/ExpandLess'
 import ExpandMore from 'material-ui-icons/ExpandMore'
+import { ListItemIcon } from 'material-ui/List'
 
 import Typography from 'shared/Typography'
+import Wrapper from 'shared/Wrapper'
+import { ListItem } from 'shared/List'
 
 import { visibilityEnhancer } from 'lib/enhancer'
-
-const Wrapper = styled.div``
 
 const CollapsibleListItem = ({
   labels,
   isVisible,
   setVisibility,
+  ...props,
 }) => {
   const [parent, ...rest] = Object.keys(labels)
 
   return (
-    <Wrapper>
+    <Wrapper
+      column="true"
+    >
       <ListItem
-        style={{ background: '#fff' }}
         onClick={
           isVisible ? () => setVisibility(false) : () => setVisibility(true)
         }
         divider
+        {...props}
       >
         {
           labels[parent].withIcon && (
@@ -37,8 +39,9 @@ const CollapsibleListItem = ({
           )
         }
         <Typography
-          type="display1"
-          style={{ color: '#000', flex: 1, marginTop: 4 }}
+          type="display2"
+          flex={1}
+          margintop={labels[parent].withIcon && 0.5}
         >
           {parent}
         </Typography>
@@ -46,23 +49,27 @@ const CollapsibleListItem = ({
       </ListItem>
       <Collapse in={isVisible} transitionDuration="auto" unmountOnExit>
         {
-          rest.map((label, i) => (
-            <ListItem key={i} style={{ background: '#fff', paddingLeft: 16 }}>
-              <Typography
-                key={label}
-                type="display2"
-                style={{ color: '#000', flex: 1 }}
-              >
-                {label}
-              </Typography>
-              <Typography
-                key={label+1}
-                type="display3"
-              >
-                {labels[label].available_until}
-              </Typography>
-            </ListItem>
-          ))
+          rest.map((label, i) => {
+            const firstField = Object.keys(labels[label])[0]
+
+            return (
+              <ListItem key={i} style={{ background: '#fff', paddingLeft: 16 }}>
+                <Typography
+                  key={label}
+                  type="display2"
+                  marginright={2}
+                >
+                  {label}
+                </Typography>
+                <Typography
+                  key={label+1}
+                  type="display3"
+                >
+                  {labels[label][firstField]}
+                </Typography>
+              </ListItem>
+            )
+          })
         }
       </Collapse>
     </Wrapper>

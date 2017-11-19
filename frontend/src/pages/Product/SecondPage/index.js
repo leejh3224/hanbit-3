@@ -1,29 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
-import List, { ListItem } from 'material-ui/List'
 import StarIcon from 'material-ui-icons/Star'
 import WbCloudyIcon from 'material-ui-icons/WbCloudy'
 
+import List, { ListItem } from 'shared/List'
+import Typography from 'shared/Typography'
+
 import Review from './Review'
-
-const FullList = styled(List)`
-  &&{
-    width: 100%;
-    padding-top: 0;
-  }
-`
-
-const StyledListItem = styled(ListItem)`
-  && {
-    background-color: #fff;
-  }
-`
 
 const SecondPage = ({
   review,
 }) => {
+
+  // 별점
   const averageScore = (review.reduce((first, next) => {
     return first + next.review_rating
   }, 0) / review.length) || 0
@@ -33,41 +23,40 @@ const SecondPage = ({
   }
 
   return (
-    <FullList>
-      <StyledListItem 
-        style={{ 
-          marginBottom: 8,
-          display: 'flex',
-          justifyContent: 'center',
-        }}
+    <List column="true">
+      <ListItem
+        justifycontent="center"
+        marginbottom={1}
       >
         {stars}
-        <p style={{ margin: '3px 0 0 8px' }}>{averageScore}점 ({review.length}명 참여)</p>
-      </StyledListItem>
+        <Typography
+          type="display2"
+          margintop={0.5}
+        >
+          {averageScore}점 ({review.length}명 참여)
+        </Typography>
+      </ListItem>
       {
         review.map(item => {
           return (
-            <Review item={item} key={item.updatedAt} />
+            <Review item={item} key={item.author} />
           )
         })
       }
       {
         !review.length && 
-        <StyledListItem 
-          style={{
-            minHeight: 300,
-            color: 'grey',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
+        <ListItem
+          height={300}
+          color="grey"
+          column="true"
+          alignitems="center"
+          justifycontent="center"
         >
           <WbCloudyIcon style={{ width: 32, height: 32, marginBottom: 8 }}/>
           작성된 리뷰가 없습니다.
-        </StyledListItem>
+        </ListItem>
       }
-    </FullList>
+    </List>
   )
 }
 

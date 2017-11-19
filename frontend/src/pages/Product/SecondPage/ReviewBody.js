@@ -2,18 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { ListItemText } from 'material-ui/List'
 import Button from 'material-ui/Button'
+
+import Typography from 'shared/Typography'
 
 import { visibilityEnhancer } from 'lib/enhancer'
 
 const Wrapper = styled.div``
-
-const MediaRightText = styled(ListItemText)`
-  && {
-    padding: 0;
-  }
-`
 
 const StyledButton = styled(Button)`
   && {
@@ -28,14 +23,12 @@ const ReviewBody = ({
   setVisibility,
 }) => {
   const isLongText = text.length >= 200
+  
   return (
     <Wrapper>
-      <MediaRightText
-        secondary={
-          isVisible ? text.slice(0, 200): text
-        }
-        style={{ padding: 0 }}
-      />
+      <Typography>
+        {isVisible ? text.slice(0, 200): text}
+      </Typography>
       {
         isLongText &&
         <StyledButton
@@ -43,7 +36,6 @@ const ReviewBody = ({
             () => isVisible ? 
             setVisibility(false) : setVisibility(true)
           }
-          style={{ padding: 0 }}
         >{isVisible ? '더보기' : '접기'}</StyledButton>
       }
     </Wrapper>
@@ -52,8 +44,8 @@ const ReviewBody = ({
 
 ReviewBody.propTypes = {
   text: PropTypes.string.isRequired,
-  isTextHidden: PropTypes.bool.isRequired,
-  setTextVisibility: PropTypes.func.isRequired,
+  isVisible: PropTypes.bool.isRequired,
+  setVisibility: PropTypes.func.isRequired,
 }
 
 export default visibilityEnhancer(

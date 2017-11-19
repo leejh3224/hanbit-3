@@ -3,9 +3,11 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
 } from 'react-router-dom'
 import cookie from 'cookie'
 import axios from 'axios'
+import merge from 'lodash/merge'
 
 /* meterial-ui */
 import { MuiThemeProvider } from 'material-ui/styles'
@@ -23,23 +25,29 @@ import Footer from 'pages/Footer'
 import Home from 'pages/Home'
 import Welcome from 'pages/Welcome'
 import Product from 'pages/Product'
+import Order from 'pages/Order'
 
 import RedirectIf from 'lib/RedirectIf'
 
 class App extends Component {
   state = {
     users: null,
-    products: null
+    products: null,
+    cart: [{ '5a07141f5c5b343379e6165b': [{ '레드': 1 }] }],
   }
   componentWillMount() {
     const { user } = cookie.parse(document.cookie)
-    
+
     if (user) {
-      const getField = (str, index) => str.split(',')[index].split(":")[1].split("}")[0]
+      const getField = (str, index) => str.split(';')[index].split(":")[1].split("}")[0]
       const sid = getField(user, 0)
       const username = getField(user, 1)
       const isSocialUser = getField(user, 2) === 'yes'
       const register_completed = getField(user, 3) === 'yes'
+      const address = getField(user, 4)
+      const postcode = getField(user, 5)
+      const phone = getField(user, 6)
+      const name = getField(user, 7)
 
       this.setState(prev => (
         { 
@@ -51,6 +59,9 @@ class App extends Component {
               user: username,
               social: isSocialUser,
               register_completed,
+              address: `(${postcode}) ${address}`,
+              phone,
+              name,
             }
           },
         }
@@ -71,8 +82,22 @@ class App extends Component {
       }))
     })
   }
+
+  addToCart = (productId, quantityList) => {
+    this.setState(prev => ({
+      ...prev,
+      cart: [
+        ...prev.cart,
+        {
+          [productId]: quantityList,
+        },
+      ],
+    }))
+  }
+
   render() {
-    const { users, products } = this.state
+    const { users, products, cart } = this.state
+    const { addToCart } = this
     const isLoggedIn = !!Object.keys(users || {}).length && 
     (Object.values(users || {})[0].register_completed || false)
     const user = Object.values(users || {})[0] || { social: false }
@@ -84,7 +109,8 @@ class App extends Component {
             <div>
               <Header isLoggedIn={isLoggedIn} />
               <Switch>
-                <Route path="/product/:id" render={props => <Product products={products} {...props} />} />
+                <Route path="/order" render={props => cart.length ? <Order user={user} {...props} /> : <Redirect to="/" />} />
+                <Route path="/product/:id" render={props => <Product products={products} cart={cart} addToCart={addToCart} {...props} />} />
                 <Route exact path="/welcome" component={Welcome} />
                 <Route exact path="/(signin|signup)" render={() => RedirectIf(isLoggedIn, user)} />
                 <Route path="/:mode?" render={props => <Home products={products || {}} {...props} />} />

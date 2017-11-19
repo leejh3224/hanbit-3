@@ -6,10 +6,13 @@ import Card, { CardActions, CardContent } from 'material-ui/Card'
 import FavoriteIcon from 'material-ui-icons/Favorite'
 import StarIcon from 'material-ui-icons/Star'
 
+import Wrapper from 'shared/Wrapper'
 import Image from 'shared/Image'
 import Typography from 'shared/Typography'
 import { PrimaryButton, WhiteButton } from 'shared/Button'
 import Link from 'shared/Link'
+
+import { currency } from 'lib/format'
 
 const StyledLink = styled(Link)`
   && {
@@ -60,55 +63,60 @@ const ProductCard = ({
           lazy
         />
         <StyledCardContent>
-          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <Wrapper
+            fullwidth
+            justifycontent="space-between"
+          >
+            <Wrapper column="true">
               <Typography
-                type="headline"
-                bold="true"
-                style={{ color: '#000' }}
+                type="display1"
+                marginbottom={1}
               >
                 {name}
               </Typography>
               <Typography
                 type="display3"
-                bold="true"
-                style={{ color: '#000' }}
               >
                 {promotions[0].name}
               </Typography>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            </Wrapper>
+            <Wrapper alignitems="center">
               <StarIcon style={{ marginBottom: 7, marginRight: 5 }}/>
               <Typography
                 type="subheading"
                 bold="true"
+                color="primary"
               >
                 {aggregate_rating.rating_value}
               </Typography>
-            </div>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            </Wrapper>
+          </Wrapper>
+          <Wrapper justifycontent="center">
             <Typography
               type="display2"
               bold="true"
-              style={{ margin: '8px 8px 0 0', textDecoration: 'line-through' }}
+              color="grey"
+              margintop={1}
+              marginright={1}
+              style={{ textDecoration: 'line-through' }}
             >
-              {new Intl.NumberFormat().format(low_price)}원
+              {currency(high_price)}
             </Typography>
             <Typography
               type="display2"
               bold="true"
-              style={{ color: '#000', margin: '8px 0 0 0' }}
+              color="primary"
+              margintop={1}
             >
-              {new Intl.NumberFormat().format(high_price)}원
+              {currency(low_price)}
             </Typography>
-          </div>
+          </Wrapper>
         </StyledCardContent>
         <StyledCardActions>
-          <PrimaryButton flex="true" style={{ height: 36 }}>
+          <PrimaryButton marginright={1}>
             <FavoriteIcon />
           </PrimaryButton>
-          <WhiteButton flex="true">
+          <WhiteButton>
             장바구니
           </WhiteButton>
         </StyledCardActions>

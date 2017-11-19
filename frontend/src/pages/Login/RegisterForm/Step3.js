@@ -85,10 +85,10 @@ const Step3 = ({
           onClick={() => {
 
             /* 
-            * postCodeOptions는 
-            * field 3개의 id 값을 파라미터로 받음
-            * @func setFieldValue: (field: string, value: any) => void
-            */
+             * postCodeOptions는 
+             * field 3개의 id 값을 파라미터로 받음
+             * @func setFieldValue: (field: string, value: any) => void
+             */
             new daum.Postcode(
               postCodeOptions('postcode', 'address1', 'address2', setFieldValue)
             ).open()

@@ -1,132 +1,83 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
-import List, { ListItem } from 'material-ui/List'
-import FavoriteIcon from 'material-ui-icons/Favorite'
 import InfoIcon from 'material-ui-icons/Info'
 
+import Wrapper from 'shared/Wrapper'
+import List, { ListItem } from 'shared/List'
 import Carousel from 'shared/Carousel'
 import Typography from 'shared/Typography'
 import CollapsibleListItem from 'shared/CollapsibleListItem'
-import { RoundButton } from 'shared/Button'
+
+import BasicInfo from './BasicInfo'
 
 import { color } from 'lib/styledTheme'
 
-const Wrapper = styled.div``
+/*
+ * "할인 행사 이름": {
+ *  "available_until": "기간",
+ *  "name": "이름"
+ * }
+ * 오브젝트 생성
+ */
+const mapArray = (promotions) => ({
 
-const StyledListItem = styled(ListItem)`
-  && {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    background-color: #fff;
-  }
-`
+  // 부모 탭
+  "할인 정보": { 
+    withIcon: true, 
+    icon: <InfoIcon style={{ color: color.grey }} />
+  },
 
-const StyledTypography = styled(Typography)`
-  && {
-    position: relative;
-    &::after {
-      content: "";
-      position: absolute;
-      height: 3px;
-      width: 35px;
-      bottom: -6px;
-      left: 0;
-      background: #000;
-      margin-bottom: 4px;
-    }
-  }
-`
+  // 자식 탭
+  ...promotions.reduce((obj, v) => {
+    obj[v.name] = v
+    return obj
+  }, {})
+})
 
 const FirstPage = ({
   product,
 }) => {
   const {
     image,
-    name,
-    low_price,
-    high_price,
     description,
     stock_keeping_unit,
     promotions,
   } = product
-  const { primary, grey } = color
 
   return (
-    <Wrapper>
-      {/* first page */}
+    <Wrapper column="true">
       <Carousel
         images={image}
         height={400}
       />
-      <List style={{ paddingTop: 0 }}>
-        <StyledListItem style={{ position: 'relative' }} divider>
-          <Typography type="subheading">{name}</Typography>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Typography
-              type="display1"
-              bold="true"
-              style={{ color: primary, marginRight: 8 }}
-            >
-              {Math.round(((high_price - low_price) / high_price) * 100)}%
-            </Typography>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <Typography
-                type="display3"
-                bold="true"
-                style={{ textDecoration: 'line-through' }}
-              >
-                {new Intl.NumberFormat().format(low_price)}원
-              </Typography>
-              <Typography
-                type="display1"
-                bold="true"
-                style={{ color: '#000' }}
-              >
-                {new Intl.NumberFormat().format(high_price)}원
-              </Typography>
-            </div>
-          </div>
-          <RoundButton
-            diameter={42}
-            absolute="true"
-            bottom={16}
-            right={16}
-          >
-            <FavoriteIcon style={{ color: '#fff' }} />
-          </RoundButton>
-        </StyledListItem>
-        <StyledListItem divider>
+      <List column="true">
+        <BasicInfo product={product} />
+        <ListItem divider>
+          <Typography type="display1">
+            잔여 수량: {stock_keeping_unit}개
+          </Typography>
+        </ListItem>
+        <CollapsibleListItem 
+          labels={mapArray(promotions)} 
+        />
+        <ListItem            
+          column="true"
+          alignitems="start"
+          height={180}
+          margintop={1}
+          paddingbottom={6}
+        >
           <Typography
             type="display1"
-            style={{ color: '#000' }}
+            marginbottom={1}
           >
-            잔여 {stock_keeping_unit}개
+            상세설명
           </Typography>
-        </StyledListItem>
-        <CollapsibleListItem 
-          labels={{
-            "할인 정보": { 
-              withIcon: true, 
-              icon: <InfoIcon style={{ color: grey }} />
-            },
-            ...promotions.reduce((obj, v) => {
-              obj[v.name] = v
-              return obj
-            }, {})
-          }} 
-        />
-        <StyledListItem style={{ marginTop: 8, paddingBottom: 50 }}>
-          <StyledTypography
-            type="headline"
-          >상세설명</StyledTypography>
           <Typography
             type="display2"
-            style={{ color: '#000', marginTop: 8 }}
           >{description}</Typography>
-        </StyledListItem>
+        </ListItem>
       </List>
     </Wrapper>
   )

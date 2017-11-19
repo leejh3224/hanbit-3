@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
 import Dialog from 'material-ui/Dialog'
 import Button from 'material-ui/Button'
@@ -12,27 +11,24 @@ import Toolbar from 'material-ui/Toolbar'
 import AppBar from './AppBar'
 import Typography from './Typography'
 
+import Wrapper from 'shared/Wrapper'
+import SearchInput from 'shared/SearchInput'
+
 function Transition(props) {
   return <Slide direction="up" {...props} />
 }
-
-const BodyWrapper = styled.div`
-  margin: ${({ theme }) => theme.spacing * 5}px;
-  margin-top: ${({ theme }) => theme.spacing * 8}px;
-`
 
 const FullScreenDialog = ({
   Trigger,
   name,
   action,
-  body,
   open,
   handleClickOpen,
   handleRequestClose,
   fullScreen,
 }) => {
   return (
-    <div>
+    <Wrapper column="true">
       <Trigger onClick={handleClickOpen} />
       <Dialog
         fullScreen={fullScreen}
@@ -40,7 +36,11 @@ const FullScreenDialog = ({
         onRequestClose={handleRequestClose}
         transition={Transition}
       >
-        <AppBar data-transparent>
+        <AppBar
+          background="lightWhite"
+          borderbottom="1px solid grey"
+          boxshadow="none"
+        >
           <Toolbar disableGutters>
             <IconButton
               onClick={handleRequestClose}
@@ -50,19 +50,24 @@ const FullScreenDialog = ({
             </IconButton>
             <Typography
               type="headline"
-              data-bold
-              style={{ flex: 1, marginTop: 3, marginLeft: 12 }}
+              bold="true"
+              flex={1}
+              margintop={0.5}
+              marginleft={1.5}
             >{name}</Typography>
             <Button onClick={handleRequestClose}>
               {action}
             </Button>
           </Toolbar>
         </AppBar>
-        <BodyWrapper>
-          {body}
-        </BodyWrapper>
+        <Wrapper
+          margintop={4}
+          padding={4}
+        >
+          <SearchInput fullWidth />
+        </Wrapper>
       </Dialog>
-    </div>
+    </Wrapper>
   )
 }
 
@@ -70,7 +75,6 @@ FullScreenDialog.propTypes = {
   Trigger: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   action: PropTypes.string.isRequired,
-  body: PropTypes.element.isRequired,
   open: PropTypes.bool.isRequired,
   handleClickOpen: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,

@@ -1,21 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+
+import Wrapper from 'shared/Wrapper'
+import TabBar from 'shared/TabBar'
 
 import Template from '../Template'
-import TabBar from 'shared/TabBar'
 import FirstPage from './FirstPage'
 import SecondPage from './SecondPage'
 import ThirdPage from './ThirdPage'
-import PageFooter from './PageFooter'
-
-const Wrapper = styled.div`
-  padding-top: 64px;
-`
+import Footer from './Footer'
 
 const Product = ({
   match,
+  history,
   products,
+  cart,
+  addToCart,
 }) => {
   if (!products) {
     return <p>Loading...</p>
@@ -29,12 +29,16 @@ const Product = ({
 
   return (
     <Template>
-      <Wrapper>
+      <Wrapper
+        column="true"
+        paddingtop={8}
+      >
         <TabBar
+          flex="true"
           names={{
             "상품 정보": { withBadge: false },
             "리뷰": { withBadge: true, count: review.length },
-            "관련 상품": { withBadge: true, count: related.length },
+            "관련 상품": { withBadge: false },
           }}
         >
           <FirstPage product={matchedProduct} />
@@ -42,7 +46,13 @@ const Product = ({
           <ThirdPage related={related} />
         </TabBar>
       </Wrapper>
-      <PageFooter options={options} />
+      <Footer
+        history={history}
+        product={matchedProduct}
+        options={options} 
+        cart={cart}
+        addToCart={addToCart}
+      />
     </Template>
   )
 }

@@ -23,7 +23,7 @@ const Welcome = () => {
           >Welcome!</Typography>
           <Typography
             type="subheading"
-            bold="true"d
+            bold="true"
           >환영합니다.</Typography>
           <Link to={{
             pathname: "/",

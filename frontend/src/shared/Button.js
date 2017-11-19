@@ -1,36 +1,33 @@
 import styled from 'styled-components'
+import upperFirst from 'lodash/upperFirst'
 
-import Absolute from 'lib/Absolute'
+import common from 'lib/css-helper'
 
 import Button from 'material-ui/Button'
 
-export const PrimaryButton = styled(Button)`
+export const PrimaryButton = styled(Button).attrs({
+  background: ({ background = 'primary' }) => background,
+  color: ({ color = 'white' }) => color,
+  flex: ({ flex = 1 }) => flex,
+})`
   && {
-    color: #fff;
-    background-color: ${({ theme }) => theme.color.primary};
+    min-width: ${({ width = 88 }) => width}px;
+    min-height: ${({ height = 36 }) => height}px;
     border-radius: 5px;
-    flex: ${({ flex }) => flex && 1};
-    ${({ absolute, top, right, bottom, left }) => Absolute(absolute, top, right, bottom, left)};
+    ${common};
 
     &:hover {
-      background-color: ${({ theme }) => theme.color.primaryHover};
+      background-color: ${({ theme, background = 'primary' }) => 
+        theme.color[`light${upperFirst(background)}`]};
     }
   }
 `
 
-export const WhiteButton = PrimaryButton.extend`
-  && {
-    color: #000;
-    background-color: #fff;
-    border: 1px solid #000;
-
-    // 아이콘 버튼과 높이를 맞추기 위해
-    height: 36px;
-
-    &:hover {
-      background-color: ${({ theme }) => theme.color.whiteHover};;
-    }
-  }
+export const WhiteButton = styled(PrimaryButton).attrs({
+  background: 'white',
+  color: 'black',
+  border: ({ border = '1px solid #000' }) => border,
+})`
 `
 
 export const RoundButton = PrimaryButton.extend`
@@ -39,11 +36,5 @@ export const RoundButton = PrimaryButton.extend`
     min-width: ${({ diameter }) => diameter}px;
     min-height: ${({ diameter }) => diameter}px;
     border-radius: 100%;
-    padding: 0;
-    background-color: ${({ theme, color }) => theme.color[color]};
-
-    &:hover {
-      background-color: ${({ theme, color }) => theme.color[color]};
-    }
   }
 `

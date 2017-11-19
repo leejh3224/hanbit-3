@@ -10,9 +10,9 @@ import LockOpenIcon from 'material-ui-icons/LockOpen'
 import PersonOutlineIcon from 'material-ui-icons/PersonOutline'
 
 import AppBar from 'shared/AppBar'
+import AppDrawer from 'shared/AppDrawer'
 import Typography from 'shared/Typography'
 import FullScreenDialog from 'shared/FullScreenDialog'
-import SearchInput from 'shared/SearchInput'
 import Link from 'shared/Link'
 
 const SearchButton = ({
@@ -27,6 +27,18 @@ const SearchButton = ({
     </IconButton>
   </Link>
 )
+
+const MenuButton = ({
+  onClick,
+}) => (
+  <IconButton 
+    aria-label="Menu"
+    onClick={onClick}
+  >
+    <MenuIcon />
+  </IconButton>
+)
+
 
 class Header extends Component {
   static propTypes = {
@@ -58,18 +70,23 @@ class Header extends Component {
      * 로컬 로그인의 경우에는 history.push로부터 상태를 전달받고,
      * 소셜 로그인의 경우 App 컴포넌트에서 cookie를 읽어서 전달
      */
-    const { isLoggedIn } = this.props.location.state || this.props
     const { open } = this.state
+    const { isLoggedIn } = this.props
     const { handleClickOpen, handleRequestClose } = this
+
     return (
-      <AppBar data-transparent style={{ boxShadow: 'none' }}>
+      <AppBar 
+        background="white"
+        boxshadow="none"
+      >
         <Toolbar disableGutters>
-          <IconButton aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
+          <AppDrawer 
+            Trigger={MenuButton}
+          />
           <Typography 
             type="headline"
-            style={{ marginLeft: 12, marginTop: 3 }}
+            marginleft={1.5}
+            margintop={0.5}
           >
             <Link to="/">
               Hanbit
@@ -81,7 +98,6 @@ class Header extends Component {
             fullScreen
             name={'Search'}
             action={'BACK'}
-            body={<SearchInput fullWidth />}
             Trigger={SearchButton}
             open={open}
             handleClickOpen={handleClickOpen}

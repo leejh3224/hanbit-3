@@ -1,10 +1,20 @@
 const styledTheme = {
   color: {
+
+    // primary
     primary: '#fb6542',
-    primaryHover: '#fb8367',
-    whiteHover: '#e5e5e5',
+    lightPrimary: 'rgba(251, 101, 66, 0.7)',
+
+    //greyscale
+    black: '#000',
+    lightBlack: 'rgba(0, 0, 0, 0.7)',
+    white: '#fff',
+    lightWhite: 'rgba(255, 255, 255, 0.7)',
     background: '#f4f4f4',
     grey: '#d5d6d2',
+    lightGrey: 'rgba(213, 214, 210, 0.7)',
+
+    // notification
     success: 'c7db00',
     error: '#fe423f',
   },

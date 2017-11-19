@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
-import { ListItem, ListItemText } from 'material-ui/List'
 import Avatar from 'material-ui/Avatar'
 import SentimentVeryDissatisfiedIcon from 'material-ui-icons/SentimentVeryDissatisfied'
 import SentimentDissatisfiedIcon from 'material-ui-icons/SentimentDissatisfied'
@@ -10,26 +8,13 @@ import SentimentNeutralIcon from 'material-ui-icons/SentimentNeutral'
 import SentimentSatisfiedIcon from 'material-ui-icons/SentimentSatisfied'
 import SentimentVerySatisfiedIcon from 'material-ui-icons/SentimentVerySatisfied'
 
+import Wrapper from 'shared/Wrapper'
+import Typography from 'shared/Typography'
+import { ListItem } from 'shared/List'
+
 import ReviewBody from './ReviewBody'
 
-const Wrapper = styled(ListItem)`
-  && {
-    background-color: #fff;
-  }
-`
-
-const MediaRight = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 16px;
-  align-items: start;
-`
-
-const MediaRightText = styled(ListItemText)`
-  && {
-    padding: 0;
-  }
-`
+import { date } from 'lib/format'
 
 const IconStyle = { width: 48, height: 48, color: '#000' }
 
@@ -41,35 +26,34 @@ const IconByRating = {
   5: <SentimentVerySatisfiedIcon style={IconStyle}/>,
 }
 
-const options = {
-  year: 'numeric', month: 'numeric', day: 'numeric',
-  hour: 'numeric', minute: 'numeric', second: 'numeric',
-  hour12: false,
-  timeZone: 'Asia/Seoul',
-}
-
 const Review = ({
   item,
 }) => {
-  const { author, review_body, review_rating, updatedAt } = item
+  const { 
+    author, 
+    review_body, 
+    review_rating, 
+    updatedAt 
+  } = item
 
   return (
-    <Wrapper divider key={updatedAt}>
-      <Avatar key={author}>
+    <ListItem divider >
+      <Avatar>
         {IconByRating[review_rating]}
       </Avatar>
-      <MediaRight>
-        <MediaRightText
-          secondary={author.replace(/.{3}$/,'***')}
-          style={{ padding: 0}}
-        />
+      <Wrapper
+        column="true"
+        marginleft={2}
+      >
+        <Typography>
+          {author.replace(/.{3}$/,'***')}
+        </Typography>
         <ReviewBody text={review_body} />
-        <MediaRightText
-          secondary={new Intl.DateTimeFormat('ko-KR', options).format(new Date(updatedAt))}
-          style={{ padding: 0}}
-        />
-      </MediaRight>
-    </Wrapper>
+        <Typography>
+          {date(updatedAt)}
+        </Typography>
+      </Wrapper>
+    </ListItem>
   )
 }
 

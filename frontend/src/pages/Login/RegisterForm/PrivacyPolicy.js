@@ -6,12 +6,13 @@ const PrivacyPolicy = () => {
   return (
     <Typography
       type="display3"
+      column="true"
+      height={300}
+      margintop={2}
+      padding={1}
+      border="1px solid grey"
       style={{
-        height: 300,
         overflow: 'auto',
-        margin: '16px 0',
-        padding: 8,
-        border: '1px solid grey',
       }}
     >
       <strong>*개인정보의 수집목적 및 이용*</strong><br />

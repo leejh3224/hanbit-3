@@ -38,10 +38,11 @@ const StyledAppBar = styled(AppBar)`
 const StyledBadge = styled(Badge)`
   && {
     span {
-      width: 24px;
-      height: 24px;
-      right: -28px;
-      top: -5px;
+      width: 20px;
+      height: 20px;
+      right: -22px;
+      top: -3px;
+      font-size: 8px;
     }
   }
 `
@@ -49,8 +50,6 @@ const StyledBadge = styled(Badge)`
 const StyledTab = styled(Tab)`
   && {
     color: #000;
-    min-width: 120px;
-    flex: 1;
   }
 `
 
@@ -69,6 +68,7 @@ const TabBar = enhance(({
   setIndex,
   names,
   children,
+  flex,
 }) => {
   const namesArray = Object.keys(names)
 
@@ -77,12 +77,14 @@ const TabBar = enhance(({
       <Wrapper>
         <StyledAppBar
           position="static"
+          background="white"
+          marginbottom={1}
         >
           <Tabs
             indicatorColor="primary"
             value={index}
             onChange={(e, value) => setIndex(value)}
-            centered
+            fullWidth
             scrollable
             scrollButtons="off"
           >

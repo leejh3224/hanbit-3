@@ -123,7 +123,7 @@ export const validationSchema = ({ user }) => (
   })
 )
 
-export const handleSubmit = async (values, { props, setSubmitting }) => {
+export const handleSubmit = (values, { props, setSubmitting }) => {
   let { email, address2 } = values
   const { password, name, phone, postcode, address1 } = values
   const { social, userId } = props.user
