@@ -65,12 +65,15 @@
     "webpack-dev-server": "2.8.2",
     "webpack-manifest-plugin": "1.2.1",
     "whatwg-fetch": "2.0.3",
-    "yup": "^0.23.0"
+    "yup": "^0.23.0",
+    "snyk": "^1.161.1"
   },
   "scripts": {
     "start": "NODE_PATH=src node scripts/start.js",
     "build": "NODE_PATH=src node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -113,5 +116,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://127.0.0.1:8080/"
+  "proxy": "http://127.0.0.1:8080/",
+  "snyk": true
 }
