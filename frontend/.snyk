@@ -6,3 +6,20 @@ patch:
   SNYK-JS-AXIOS-174505:
     - axios:
         patched: '2019-05-05T21:28:54.378Z'
+  'npm:hoek:20180212':
+    - webpack-dev-server > chokidar > fsevents > node-pre-gyp > hawk > hoek:
+        patched: '2019-05-13T11:57:12.581Z'
+    - webpack > watchpack > chokidar > fsevents > node-pre-gyp > hawk > boom > hoek:
+        patched: '2019-05-13T11:57:12.581Z'
+    - webpack > watchpack > chokidar > fsevents > node-pre-gyp > hawk > hoek:
+        patched: '2019-05-13T11:57:12.581Z'
+    - webpack > watchpack > chokidar > fsevents > node-pre-gyp > hawk > sntp > hoek:
+        patched: '2019-05-13T11:57:12.581Z'
+    - webpack-dev-server > chokidar > fsevents > node-pre-gyp > hawk > sntp > hoek:
+        patched: '2019-05-13T11:57:12.581Z'
+    - webpack-dev-server > chokidar > fsevents > node-pre-gyp > hawk > boom > hoek:
+        patched: '2019-05-13T11:57:12.581Z'
+    - webpack-dev-server > chokidar > fsevents > node-pre-gyp > hawk > cryptiles > boom > hoek:
+        patched: '2019-05-13T11:57:12.581Z'
+    - webpack > watchpack > chokidar > fsevents > node-pre-gyp > hawk > cryptiles > boom > hoek:
+        patched: '2019-05-13T11:57:12.581Z'
