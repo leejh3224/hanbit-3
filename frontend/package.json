@@ -33,7 +33,7 @@
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
     "immutable": "^3.8.2",
-    "jest": "23.0.0",
+    "jest": "24.0.0",
     "lodash": "^4.17.11",
     "material-ui": "^1.0.0-beta.18",
     "material-ui-icons": "^1.0.0-beta.17",
@@ -66,7 +66,7 @@
     "webpack-manifest-plugin": "1.2.1",
     "whatwg-fetch": "2.0.3",
     "yup": "^0.23.0",
-    "snyk": "^1.161.1"
+    "snyk": "^1.173.1"
   },
   "scripts": {
     "start": "NODE_PATH=src node scripts/start.js",
