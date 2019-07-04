@@ -19,7 +19,9 @@
     "clean": "rimraf dist",
     "build": "npm run clean && mkdir -p dist && babel src -s -D -d dist",
     "test": "jest --watch",
-    "lint": "esw -w src test"
+    "lint": "esw -w src test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "keywords": [
     "express",
@@ -59,7 +61,8 @@
     "passport-naver": "^1.0.6",
     "pug": "^2.0.0",
     "redis": "^2.8.0",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
@@ -120,5 +123,6 @@
   "homepage": "https://github.com/vmasto/express-babel#readme",
   "directories": {
     "test": "test"
-  }
+  },
+  "snyk": true
 }
