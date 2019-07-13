@@ -34,7 +34,7 @@
     "html-webpack-plugin": "2.29.0",
     "immutable": "^3.8.2",
     "jest": "24.0.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "material-ui": "^1.0.0-beta.18",
     "material-ui-icons": "^1.0.0-beta.17",
     "normalize.css": "^7.0.0",
