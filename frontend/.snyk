@@ -45,3 +45,8 @@ patch:
   'npm:stringstream:20180511':
     - webpack > watchpack > chokidar > fsevents > node-pre-gyp > request > stringstream:
         patched: '2019-06-06T05:09:21.290Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-04T21:38:48.379Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-04T21:38:48.379Z'
