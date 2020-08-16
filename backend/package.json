@@ -50,7 +50,7 @@
     "express-session": "^1.15.6",
     "helmet": "^3.9.0",
     "local": "^0.3.3",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.20",
     "mime-types": "^2.1.17",
     "mongoose": "^4.13.17",
     "morgan": "^1.9.1",
@@ -62,7 +62,7 @@
     "pug": "^2.0.0",
     "redis": "^2.8.0",
     "rimraf": "^2.6.1",
-    "snyk": "^1.189.0"
+    "snyk": "^1.192.5"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
