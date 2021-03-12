@@ -45,7 +45,7 @@
     "react": "^16.1.1",
     "react-animations": "^1.0.0",
     "react-autosuggest": "^9.3.2",
-    "react-dev-utils": "^4.2.2",
+    "react-dev-utils": "^11.0.4",
     "react-dom": "^16.1.2",
     "react-lazyload": "^2.3.0",
     "react-number-format": "^3.0.1",
