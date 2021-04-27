@@ -60,7 +60,7 @@
     "passport-local": "^1.0.0",
     "passport-naver": "^1.0.6",
     "pug": "^2.0.0",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "rimraf": "^2.6.1",
     "snyk": "^1.189.0"
   },
