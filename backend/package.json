@@ -50,7 +50,7 @@
     "express-session": "^1.15.6",
     "helmet": "^3.9.0",
     "local": "^0.3.3",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "mime-types": "^2.1.17",
     "mongoose": "^4.13.17",
     "morgan": "^1.9.1",
