@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.5
+version: v1.22.1
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -45,3 +45,114 @@ patch:
   'npm:stringstream:20180511':
     - webpack > watchpack > chokidar > fsevents > node-pre-gyp > request > stringstream:
         patched: '2019-06-06T05:09:21.290Z'
+  SNYK-JS-LODASH-567746:
+    - babel-core > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - enzyme > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - enzyme-adapter-react-16 > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - eslint > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - eslint-plugin-flowtype > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - html-webpack-plugin > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - material-ui > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - react-redux > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - redux > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - webpack-manifest-plugin > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - yup > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-core > babel-types > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-eslint > babel-types > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-core > babel-generator > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-core > babel-traverse > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-eslint > babel-traverse > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-core > babel-template > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-plugin-transform-decorators-legacy > babel-template > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-jest > babel-core > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-core > babel-register > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - enzyme > cheerio > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - enzyme-adapter-react-16 > enzyme-adapter-utils > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - eslint > inquirer > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - react-dev-utils > inquirer > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - eslint > table > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - extract-text-webpack-plugin > async > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-plugin-transform-decorators-legacy > babel-template > babel-types > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-jest > babel-core > babel-types > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-preset-react-app > babel-plugin-dynamic-import-node > babel-types > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-jest > babel-core > babel-generator > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-plugin-transform-decorators-legacy > babel-template > babel-traverse > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-jest > babel-core > babel-traverse > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-jest > babel-core > babel-template > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-preset-react-app > babel-plugin-dynamic-import-node > babel-template > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-core > babel-register > babel-core > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-jest > babel-core > babel-register > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-preset-react-app > babel-preset-env > babel-plugin-transform-es2015-block-scoping > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - webpack > watchpack > async > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-preset-react-app > babel-plugin-dynamic-import-node > babel-template > babel-traverse > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-preset-react-app > babel-preset-env > babel-plugin-transform-es2015-classes > babel-helper-define-map > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - babel-preset-react-app > babel-preset-env > babel-plugin-transform-es2015-sticky-regex > babel-helper-regex > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - snyk > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - snyk > @snyk/dep-graph > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - snyk > inquirer > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - snyk > snyk-config > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - snyk > snyk-php-plugin > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - webpack-dev-server > http-proxy-middleware > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - jest > jest-cli > jest-config > @babel/core > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - jest > jest-cli > jest-config > @babel/core > @babel/traverse > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
+    - jest > jest-cli > jest-config > jest-environment-jsdom > jsdom > request-promise-native > request-promise-core > lodash:
+        patched: '2021-10-23T01:24:08.214Z'
