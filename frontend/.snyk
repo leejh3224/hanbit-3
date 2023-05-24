@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.5
+version: v1.25.1
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -45,3 +45,36 @@ patch:
   'npm:stringstream:20180511':
     - webpack > watchpack > chokidar > fsevents > node-pre-gyp > request > stringstream:
         patched: '2019-06-06T05:09:21.290Z'
+  SNYK-JS-LODASH-567746:
+    - babel-core > babel-generator > babel-types > lodash:
+        patched: '2023-05-24T20:48:10.762Z'
+    - babel-eslint > babel-traverse > babel-types > lodash:
+        patched: '2023-05-24T20:48:10.762Z'
+    - babel-core > babel-helpers > babel-template > lodash:
+        patched: '2023-05-24T20:48:10.762Z'
+    - babel-jest > babel-core > babel-register > lodash:
+        patched: '2023-05-24T20:48:10.762Z'
+    - babel-jest > babel-core > babel-generator > babel-types > lodash:
+        patched: '2023-05-24T20:48:10.762Z'
+    - babel-plugin-transform-decorators-legacy > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2023-05-24T20:48:10.762Z'
+    - babel-core > babel-helpers > babel-template > babel-traverse > lodash:
+        patched: '2023-05-24T20:48:10.762Z'
+    - babel-jest > babel-core > babel-helpers > babel-template > lodash:
+        patched: '2023-05-24T20:48:10.762Z'
+    - babel-core > babel-helpers > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2023-05-24T20:48:10.762Z'
+    - babel-preset-react-app > babel-plugin-dynamic-import-node > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2023-05-24T20:48:10.762Z'
+    - babel-jest > babel-core > babel-helpers > babel-template > babel-traverse > lodash:
+        patched: '2023-05-24T20:48:10.762Z'
+    - babel-jest > babel-core > babel-helpers > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2023-05-24T20:48:10.762Z'
+    - jest > jest-cli > @jest/core > @jest/reporters > @jest/environment > @jest/transform > @babel/core > lodash:
+        patched: '2023-05-24T20:48:10.762Z'
+    - jest > jest-cli > @jest/core > @jest/reporters > @jest/environment > @jest/transform > @babel/core > @babel/generator > lodash:
+        patched: '2023-05-24T20:48:10.762Z'
+    - jest > jest-cli > @jest/core > @jest/reporters > @jest/environment > @jest/transform > @babel/core > @babel/helpers > @babel/traverse > lodash:
+        patched: '2023-05-24T20:48:10.762Z'
+    - jest > jest-cli > @jest/core > @jest/reporters > jest-runtime > jest-config > jest-environment-jsdom > jsdom > request-promise-native > request-promise-core > lodash:
+        patched: '2023-05-24T20:48:10.762Z'
